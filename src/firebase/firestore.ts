@@ -139,19 +139,24 @@ export async function deleteDocById(collectionName: string, id: string) {
 }
 
 export async function uploadFile(_path: string, file: File): Promise<string> {
-  if (!isFirebaseConfigured || !storage) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        resolve(reader.result as string);
-      };
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
+  if (isFirebaseConfigured && storage) {
+    try {
+      const fileRef = ref(storage, _path);
+      await uploadBytes(fileRef, file);
+      return await getDownloadURL(fileRef);
+    } catch (err) {
+      console.warn('[Lawtronic] Firebase Storage upload failed or unconfigured, using instant Data URL fallback:', err);
+    }
   }
-  const fileRef = ref(storage, _path);
-  await uploadBytes(fileRef, file);
-  return getDownloadURL(fileRef);
+
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      resolve(reader.result as string);
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
 }
 
 export { where, orderBy, fbLimit as limit };

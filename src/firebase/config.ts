@@ -5,13 +5,13 @@ import { getStorage, type FirebaseStorage } from 'firebase/storage';
 import { getAnalytics, isSupported, type Analytics } from 'firebase/analytics';
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyD6y_Yka9Lj_gWphOI8hH5rZj99YlWBg1E",
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "lawtronic-tech.firebaseapp.com",
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "lawtronic-tech",
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "lawtronic-tech.firebasestorage.app",
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "1043765308941",
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || "1:1043765308941:web:12c013936479c598e22f44",
-  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID || "G-X9FX55MRHC",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
 /** True when all required Firebase env vars are present. */

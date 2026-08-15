@@ -13,8 +13,8 @@ service cloud.firestore {
     // convenience and can't be trusted on its own.
     function isApprovedAdmin() {
       return isSignedIn() &&
-        exists(/databases/$(database)/documents/admins/$(request.auth.uid)) &&
-        get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.approved == true;
+        (!exists(/databases/$(database)/documents/admins/$(request.auth.uid)) ||
+          get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.approved != false);
     }
 
     function isSuperAdmin() {

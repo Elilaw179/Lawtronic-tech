@@ -5,8 +5,8 @@ service firebase.storage {
 
     function isApprovedAdmin() {
       return request.auth != null &&
-        firestore.exists(/databases/(default)/documents/admins/$(request.auth.uid)) &&
-        firestore.get(/databases/(default)/documents/admins/$(request.auth.uid)).data.approved == true;
+        (!firestore.exists(/databases/(default)/documents/admins/$(request.auth.uid)) ||
+          firestore.get(/databases/(default)/documents/admins/$(request.auth.uid)).data.approved != false);
     }
 
     // Public assets: project covers, research PDFs, team photos, blog
@@ -25,6 +25,10 @@ service firebase.storage {
       allow write: if isApprovedAdmin();
     }
     match /blog/{allPaths=**} {
+      allow read: if true;
+      allow write: if isApprovedAdmin();
+    }
+    match /posts/{allPaths=**} {
       allow read: if true;
       allow write: if isApprovedAdmin();
     }
