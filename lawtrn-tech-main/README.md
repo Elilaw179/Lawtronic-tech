@@ -9,7 +9,8 @@ Firestore, and Storage (backend) · Vite (build tool).
 
 ---
 
-## 1. What's included
+## 1. What's included ...
+
 
 ```
 src/
