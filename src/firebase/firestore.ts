@@ -142,8 +142,17 @@ export async function uploadFile(_path: string, file: File): Promise<string> {
   if (isFirebaseConfigured && storage) {
     try {
       const fileRef = ref(storage, _path);
-      await uploadBytes(fileRef, file);
-      return await getDownloadURL(fileRef);
+      const metadata = {
+        contentType: file.type || 'application/octet-stream',
+        cacheControl: 'public, max-age=31536000',
+      };
+
+      const uploadPromise = uploadBytes(fileRef, file, metadata).then(() => getDownloadURL(fileRef));
+      const timeoutPromise = new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error('Upload request timed out after 12s')), 12000)
+      );
+
+      return await Promise.race([uploadPromise, timeoutPromise]);
     } catch (err) {
       console.warn('[Lawtronic] Firebase Storage upload failed or unconfigured, using instant Data URL fallback:', err);
     }
