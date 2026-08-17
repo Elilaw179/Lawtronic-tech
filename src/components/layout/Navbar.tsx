@@ -61,37 +61,37 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`sticky top-0 z-40 border-b border-line/80 bg-void/90 backdrop-blur-xl transition-shadow duration-300 ${
-          scrolled ? 'shadow-lg shadow-black/20' : ''
+        className={`sticky top-0 z-40 border-b border-line/70 bg-void/85 backdrop-blur-xl transition-all duration-300 ${
+          scrolled ? 'shadow-lg shadow-black/10 border-line/90' : ''
         }`}
       >
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3 md:px-6">
           {/* Logo */}
           <button
             onClick={handleLogoClick}
-            className="group flex select-none items-center gap-2.5 transition-opacity hover:opacity-90"
+            className="group flex select-none items-center gap-2.5 transition-opacity hover:opacity-95"
             aria-label="Lawtronic Technologies home"
           >
             <img
               src="/logo.jpg"
               alt=""
-              className="h-9 w-9 rounded-full object-cover shadow-glow-sm transition-transform duration-300 group-hover:scale-105"
+              className="h-9 w-9 rounded-full object-cover ring-2 ring-circuit/30 shadow-glow-sm transition-transform duration-300 group-hover:scale-105 group-hover:ring-circuit/60"
             />
-            <span className="font-display text-base font-semibold tracking-tight text-ink sm:text-lg">
+            <span className="font-display text-base font-bold tracking-tight text-ink sm:text-lg">
               LAW<span className="text-circuit">TRONIC</span>
             </span>
           </button>
 
           {/* Desktop links */}
-          <div className="hidden items-center gap-0.5 lg:flex">
+          <div className="hidden items-center gap-1 lg:flex">
             {NAV_LINKS.map((link) => (
               <NavLink
                 key={link.to}
                 to={link.to}
                 className={({ isActive }) =>
-                  `rounded-md px-3 py-1.5 text-sm transition-all duration-200 ${
+                  `rounded-lg px-3 py-1.5 text-sm font-medium transition-all duration-200 ${
                     isActive
-                      ? 'bg-circuit/10 text-circuit'
+                      ? 'bg-circuit/15 text-circuit shadow-sm'
                       : 'text-ink-dim hover:bg-panel2 hover:text-ink'
                   }`
                 }

@@ -99,6 +99,26 @@ export default {
           '0%, 100%': { borderColor: 'rgb(var(--color-circuit-rgb) / 0.2)' },
           '50%': { borderColor: 'rgb(var(--color-circuit-rgb) / 0.55)' },
         },
+        pulseRing: {
+          '0%':   { transform: 'scale(1)',   opacity: '0.6' },
+          '70%':  { transform: 'scale(1.8)', opacity: '0' },
+          '100%': { transform: 'scale(1.8)', opacity: '0' },
+        },
+        wobble: {
+          '0%, 100%': { transform: 'rotate(-1deg)' },
+          '50%':      { transform: 'rotate(1deg)' },
+        },
+        ripple: {
+          '0%':   { transform: 'scale(0.8)', opacity: '1' },
+          '100%': { transform: 'scale(2.4)', opacity: '0' },
+        },
+        glowPing: {
+          '75%, 100%': { transform: 'scale(2)', opacity: '0' },
+        },
+        heroReveal: {
+          '0%':   { opacity: '0', transform: 'translateY(30px) scale(0.96)' },
+          '100%': { opacity: '1', transform: 'translateY(0) scale(1)' },
+        },
       },
       animation: {
         trace: 'traceIn 2.2s cubic-bezier(0.22, 1, 0.36, 1) forwards',
@@ -112,6 +132,10 @@ export default {
         'draw-ring': 'drawRing 2s ease-out forwards',
         'slide-right': 'slideRight 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards',
         'border-glow': 'borderGlow 3s ease-in-out infinite',
+        'pulse-ring': 'pulseRing 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite',
+        'wobble': 'wobble 3s ease-in-out infinite',
+        'ripple': 'ripple 1.5s ease-out infinite',
+        'hero-reveal': 'heroReveal 1s cubic-bezier(0.22, 1, 0.36, 1) both',
       },
       transitionTimingFunction: {
         smooth: 'cubic-bezier(0.22, 1, 0.36, 1)',
