@@ -28,28 +28,29 @@
 }
 
 .light-mode {
-  --color-void-rgb: 248 250 252;
-  --color-panel-rgb: 255 255 255;
-  --color-panel2-rgb: 241 245 249;
-  --color-panel3-rgb: 226 232 240;
-  --color-line-rgb: 226 232 240;
-  --color-line-bright-rgb: 203 213 225;
-  --color-circuit-rgb: 2 132 199;
-  --color-circuit-bright-rgb: 14 165 233;
-  --color-circuit-dim-rgb: 3 105 161;
-  --color-chrome-rgb: 71 85 105;
-  --color-chrome-bright-rgb: 15 23 42;
-  --color-signal-rgb: 13 148 136;
-  --color-signal-dim-rgb: 17 94 89;
-  --color-ink-rgb: 15 23 42;
-  --color-ink-dim-rgb: 51 65 85;
-  --color-ink-muted-rgb: 100 116 139;
-  --color-alert-rgb: 225 29 72;
-  --color-success-rgb: 22 163 74;
+  /* ── Ice-blue palette sampled directly from Lawtronic banner ── */
+  --color-void-rgb: 190 220 245;        /* banner sky-blue background        */
+  --color-panel-rgb: 215 234 252;       /* frosted card surface               */
+  --color-panel2-rgb: 175 210 240;      /* slightly deeper hover surface      */
+  --color-panel3-rgb: 155 197 234;      /* tertiary / active state surface    */
+  --color-line-rgb: 130 180 225;        /* border lines                       */
+  --color-line-bright-rgb: 100 158 210; /* bright border / separator          */
+  --color-circuit-rgb: 0 95 210;        /* electric cobalt — logo blue        */
+  --color-circuit-bright-rgb: 0 135 255;/* vivid accent hover                 */
+  --color-circuit-dim-rgb: 0 55 140;    /* deep navy accent                   */
+  --color-chrome-rgb: 70 110 155;       /* muted steel-blue chrome            */
+  --color-chrome-bright-rgb: 8 24 52;   /* near-black navy for headings       */
+  --color-signal-rgb: 0 170 215;        /* AI / neural cyan glow              */
+  --color-signal-dim-rgb: 0 115 155;    /* subdued signal                     */
+  --color-ink-rgb: 6 20 48;             /* deep navy text                     */
+  --color-ink-dim-rgb: 25 55 95;        /* body text                          */
+  --color-ink-muted-rgb: 65 100 145;    /* muted / placeholder text           */
+  --color-alert-rgb: 210 28 68;
+  --color-success-rgb: 12 155 95;
 
-  --shadow-card-custom: 0 4px 20px -2px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
-  --shadow-elevated-custom: 0 16px 36px -6px rgba(2, 132, 199, 0.12), 0 4px 12px -2px rgba(15, 23, 42, 0.06);
-  --grid-pattern-opacity: 0.07;
+  --shadow-card-custom: 0 4px 24px -4px rgba(0, 80, 180, 0.18), 0 2px 8px -2px rgba(6, 20, 48, 0.10);
+  --shadow-elevated-custom: 0 16px 40px -8px rgba(0, 95, 210, 0.22), 0 6px 18px -4px rgba(6, 20, 48, 0.12);
+  --grid-pattern-opacity: 0.12;
 }
 
 @layer base {
@@ -248,6 +249,26 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
     animation: textGradient 4s linear infinite;
+  }
+
+  /* ── Light mode: hero gradient breathes between banner ice-blue shades ── */
+  .light-mode .hero-gradient-bg {
+    background: linear-gradient(-45deg,
+      rgb(190 220 245) 0%,
+      rgb(210 232 252) 25%,
+      rgb(175 210 240) 60%,
+      rgb(155 197 234) 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 14s ease infinite;
+  }
+
+  /* ── Light mode: grid circuit pattern uses deeper blue for visibility ── */
+  .light-mode .grid-bg {
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 95, 210, 0.20), transparent),
+      linear-gradient(rgba(0, 95, 210, var(--grid-pattern-opacity)) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 95, 210, var(--grid-pattern-opacity)) 1px, transparent 1px);
+    background-size: 100% 100%, 48px 48px, 48px 48px;
   }
 }
 

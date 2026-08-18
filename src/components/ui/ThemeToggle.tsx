@@ -23,7 +23,7 @@ export default function ThemeToggle() {
 
     if (nextTheme === 'light') {
       document.documentElement.classList.add('light-mode');
-      document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#F8FAFC');
+      document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#BEDCF5');
     } else {
       document.documentElement.classList.remove('light-mode');
       document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#050B16');
