@@ -49,15 +49,33 @@ export default function Community() {
 
       <div className="circuit-divider my-16" />
 
-      <div className="mx-auto max-w-2xl text-center">
-        <p className="eyebrow mb-3">Collaborator spotlight</p>
-        <h3 className="font-display text-2xl font-semibold text-ink">
-          Know someone doing great work?
+      <div className="mx-auto max-w-4xl text-center">
+        <p className="eyebrow mb-3">Partnerships &amp; Collaboration</p>
+        <h3 className="font-display text-2xl font-bold text-ink sm:text-3xl">
+          Let&apos;s Build Together
         </h3>
-        <p className="mt-3 text-ink-dim">
-          We regularly feature collaborators, mentors, and volunteers making an impact across our
-          programs. Nominate someone through the contact page.
+        <p className="mt-3 text-base leading-relaxed text-ink-dim max-w-2xl mx-auto">
+          Lawtronic welcomes collaboration with universities, schools, research institutions, technology companies, government organizations, startups, manufacturers, investors, innovation hubs, and international organizations.
         </p>
+
+        <div className="mt-8 flex flex-wrap justify-center gap-2 text-xs">
+          {[
+            'Universities',
+            'STEM Schools',
+            'Research Institutions',
+            'Tech Companies',
+            'Government Orgs',
+            'Startups',
+            'Manufacturers',
+            'Investors',
+            'Innovation Hubs',
+            'International Orgs',
+          ].map((partner) => (
+            <span key={partner} className="rounded-full border border-circuit/30 bg-circuit/5 px-3 py-1 text-circuit font-medium">
+              {partner}
+            </span>
+          ))}
+        </div>
       </div>
     </div>
   );

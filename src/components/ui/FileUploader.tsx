@@ -212,7 +212,7 @@ export default function FileUploader({
         <div className="relative flex items-center gap-3 rounded-lg border border-line bg-panel2 p-3">
           {isImage ? (
             <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-md border border-line bg-void">
-              <img src={displayUrl} alt="Preview" className="h-full w-full object-cover" />
+              <img src={displayUrl} alt="Preview" className="h-full w-full object-contain p-1" />
               {uploading && (
                 <div className="absolute inset-0 flex items-center justify-center bg-void/60 backdrop-blur-[1px]">
                   <Loader2 size={18} className="animate-spin text-circuit" />

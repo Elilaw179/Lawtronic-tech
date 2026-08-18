@@ -6,6 +6,7 @@ const FOOTER_LINKS = [
   {
     heading: 'Explore',
     links: [
+      { to: '/services', label: 'Services' },
       { to: '/projects', label: 'Projects' },
       { to: '/research', label: 'Research' },
       { to: '/learning', label: 'Learning Hub' },
@@ -15,8 +16,9 @@ const FOOTER_LINKS = [
   {
     heading: 'Company',
     links: [
-      { to: '/about', label: 'About' },
+      { to: '/about', label: 'About Us' },
       { to: '/team', label: 'Team' },
+      { to: '/careers', label: 'Careers' },
       { to: '/blog', label: 'Blog & News' },
       { to: '/contact', label: 'Contact' },
     ],
@@ -43,25 +45,24 @@ export default function Footer() {
 
   return (
     <footer className="border-t border-line bg-panel">
-      <div className="mx-auto max-w-7xl px-5 py-12 md:px-6 md:py-16">
-
-        {/* Top grid */}
-        <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-4 md:gap-12">
-
+      <div className="mx-auto max-w-7xl px-5 py-14 md:px-6 md:py-16">
+        <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-4">
           {/* Brand */}
           <div className="sm:col-span-2 md:col-span-1">
             <div className="flex items-center gap-2.5">
               <img src="/logo.jpg" alt="Lawtronic" className="h-9 w-9 rounded-full object-cover shadow-glow-sm" />
-              <p className="font-display text-base font-semibold text-ink">
+              <p className="font-display text-base font-semibold text-chrome-bright">
                 LAW<span className="text-circuit">TRONIC</span>
               </p>
             </div>
-            <p className="mt-3 text-sm leading-relaxed text-ink-dim">
-              Robotics, AI, and automation solutions engineered in Africa, for the systems Africa
-              needs next.
+            <p className="mt-3 text-xs font-semibold text-circuit uppercase tracking-wider">
+              Engineering the Future Through Innovation
+            </p>
+            <p className="mt-2 text-xs leading-relaxed text-ink-dim">
+              Lawtronic Technologies Ltd develops robotics, embedded systems, artificial intelligence, software, and innovative technology solutions.
             </p>
             <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-muted">
-              Innovate · Automate · Elevate
+              Innovate • Automate • Elevate
             </p>
           </div>
 

@@ -1,93 +1,133 @@
 import SectionHeader from '../../components/ui/SectionHeader';
 
-const VALUES = [
-  {
-    title: 'Build for real constraints',
-    detail: 'Cost, power, and connectivity limits are design inputs, not excuses.',
-  },
-  {
-    title: 'Publish the work',
-    detail: 'Research is written up and shared, not left in a lab notebook.',
-  },
-  {
-    title: 'Teach as we build',
-    detail: 'Every project is a chance to train the next engineer on the team.',
-  },
-  {
-    title: 'Ship, then iterate',
-    detail: 'A working prototype in the field beats a perfect one on paper.',
-  },
+const APPROACH_STEPS = [
+  { step: '01', title: 'Identify', detail: 'Understand real-world challenges directly from the environment and users.' },
+  { step: '02', title: 'Research', detail: 'Study the problem, users, technologies, and possible solutions in depth.' },
+  { step: '03', title: 'Design', detail: 'Develop a dedicated engineering solution designed around the actual need.' },
+  { step: '04', title: 'Prototype', detail: 'Build and test an initial working hardware or software system.' },
+  { step: '05', title: 'Validate', detail: 'Test with real users and systematically refine the solution.' },
+  { step: '06', title: 'Deploy', detail: 'Transform validated concepts into reliable commercial products and services.' },
 ];
 
-const ROADMAP = [
-  { year: '2026', label: 'Launch Lawtronic Vision Kit to 10 pilot schools' },
-  { year: '2027', label: 'Open the Robotics Competition Platform' },
-  { year: '2028', label: 'Regional R&D partnerships across West Africa' },
+const WHY_LAWTRONIC = [
+  {
+    title: 'African Perspective',
+    detail: 'We build with the realities and challenges of African environments in mind.',
+  },
+  {
+    title: 'Engineering-First Approach',
+    detail: 'We combine hardware, software, electronics, and intelligent systems seamlessly.',
+  },
+  {
+    title: 'Practical Innovation',
+    detail: 'We focus on solving real problems rather than technology for technology’s sake.',
+  },
+  {
+    title: 'Education + Industry',
+    detail: 'We connect practical technology education directly with real-world engineering.',
+  },
+  {
+    title: 'Scalable Vision',
+    detail: 'We aim to develop solutions that can grow from local applications to international markets.',
+  },
 ];
 
 export default function About() {
   return (
     <div>
+      {/* Hero Header */}
       <section className="grid-bg border-b border-line px-5 py-20 md:px-6 md:py-28">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="eyebrow mb-4">About Lawtronic</p>
+          <p className="eyebrow mb-4">About Lawtronic Technologies Ltd</p>
           <h1 className="font-display text-4xl font-semibold tracking-tight text-ink md:text-5xl text-balance">
-            <span className="text-blue-chrome-animated">A technology company built around one habit: research it, then build it.</span>
+            <span className="text-blue-chrome-animated">Engineering the Future Through Innovation</span>
           </h1>
           <p className="mt-6 text-base leading-relaxed text-ink-dim">
-            Lawtronic Technologies started as a small robotics and electronics workshop and has
-            grown into a full research-and-product studio spanning robotics, AI, software,
-            electronics, and automation — with STEM education woven through every project.
+            Lawtronic Technologies Ltd is a Nigerian technology and deep-tech company focused on robotics, embedded systems, artificial intelligence, software engineering, technology education, research, and intelligent automation.
           </p>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 py-20 md:px-6 md:py-24">
-        <div className="grid gap-5 md:grid-cols-2">
-          <div className="card p-8">
-            <p className="eyebrow mb-3">Vision</p>
-            <p className="text-base leading-relaxed text-ink">
-              A future where Africa&apos;s hardest infrastructure and education problems are solved
-              by African-built technology.
+      {/* Who We Are & Ambition */}
+      <section className="mx-auto max-w-7xl px-5 py-16 md:px-6 md:py-20">
+        <div className="card p-8 md:p-12 bg-panel2/30 border-line">
+          <p className="eyebrow mb-3">Who We Are</p>
+          <p className="text-lg leading-relaxed text-ink font-medium">
+            We combine engineering, software, research, and practical education to develop technology solutions that address real-world challenges.
+          </p>
+          <p className="mt-4 text-base leading-relaxed text-ink-dim">
+            Our long-term ambition is to develop locally relevant technologies that can compete beyond Africa while helping build the engineering talent required to support the continent&apos;s technological growth.
+          </p>
+        </div>
+      </section>
+
+      {/* Vision & Mission Cards */}
+      <section className="mx-auto max-w-7xl px-5 py-8 md:px-6">
+        <div className="grid gap-6 md:grid-cols-2">
+          <div className="card p-8 md:p-10 border-circuit/30 bg-circuit/5">
+            <p className="eyebrow mb-3 text-circuit">Our Vision</p>
+            <h2 className="font-display text-xl font-semibold text-ink sm:text-2xl">
+              Globally Competitive African Technology
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-ink-dim">
+              To become a leading African robotics and intelligent technology company, developing globally competitive solutions that transform education, industry, agriculture, healthcare, and everyday life.
             </p>
           </div>
-          <div className="card p-8">
-            <p className="eyebrow mb-3">Mission</p>
-            <p className="text-base leading-relaxed text-ink">
-              Research real-world problems, develop innovative solutions, build impactful products,
-              empower future innovators, and contribute to technological advancement across Africa
-              and beyond.
+          <div className="card p-8 md:p-10 border-accent/30 bg-accent/5">
+            <p className="eyebrow mb-3 text-amber">Our Mission</p>
+            <h2 className="font-display text-xl font-semibold text-ink sm:text-2xl">
+              Empowering Innovators &amp; Simplifying Life
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-ink-dim">
+              To design, develop, and deploy innovative technologies that make life simpler, improve productivity, expand access to advanced technology, and empower the next generation of African innovators.
             </p>
           </div>
         </div>
       </section>
 
-      <div className="circuit-divider" />
+      <div className="circuit-divider my-16" />
 
-      <section className="mx-auto max-w-7xl px-5 py-20 md:px-6 md:py-24">
-        <SectionHeader eyebrow="What we hold to" title=<span className="text-blue-chrome-animated"> Core values</span> />
-        <div className="grid gap-5 sm:grid-cols-2">
-          {VALUES.map((v) => (
-            <div key={v.title} className="card-interactive p-6">
-              <h3 className="font-display text-lg font-medium text-ink">{v.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink-dim">{v.detail}</p>
+      {/* OUR APPROACH: From Problem to Product */}
+      <section className="mx-auto max-w-7xl px-5 py-16 md:px-6 md:py-20">
+        <SectionHeader
+          eyebrow="Our Approach"
+          title=<span className="text-blue-chrome-animated">From Problem to Product</span>
+          description="We believe meaningful innovation starts with understanding the problem."
+        />
+        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 stagger">
+          {APPROACH_STEPS.map((s) => (
+            <div key={s.step} className="card-interactive p-6 relative overflow-hidden group">
+              <div className="mb-4 flex items-center justify-between">
+                <span className="font-mono text-2xl font-bold text-circuit opacity-70 group-hover:opacity-100 transition-opacity">
+                  {s.step}
+                </span>
+                <div className="h-1.5 w-1.5 rounded-full bg-circuit" />
+              </div>
+              <h3 className="font-display text-lg font-semibold text-ink group-hover:text-circuit-bright transition-colors">
+                {s.title}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-ink-dim">
+                {s.detail}
+              </p>
             </div>
           ))}
         </div>
       </section>
 
-      <div className="circuit-divider" />
+      <div className="circuit-divider my-16" />
 
-      <section className="mx-auto max-w-7xl px-5 py-20 md:px-6 md:py-24">
-        <SectionHeader eyebrow="Where we're headed" title=<span className="text-blue-chrome-animated"> Roadmap</span> />
-        <div className="mx-auto max-w-2xl space-y-0">
-          {ROADMAP.map((item, i) => (
-            <div
-              key={item.year}
-              className={`flex gap-6 border-line pb-8 ${i < ROADMAP.length - 1 ? 'border-b mb-8' : ''}`}
-            >
-              <span className="w-14 shrink-0 font-mono text-sm text-circuit">{item.year}</span>
-              <p className="text-ink-dim">{item.label}</p>
+      {/* WHY LAWTRONIC? */}
+      <section className="mx-auto max-w-7xl px-5 py-16 md:px-6 md:py-20">
+        <SectionHeader
+          eyebrow="Why Choose Lawtronic?"
+          title=<span className="text-blue-chrome-animated">Built for Impact and Scale</span>
+          description="Five foundational principles that guide our technology development."
+        />
+        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 stagger">
+          {WHY_LAWTRONIC.map((w) => (
+            <div key={w.title} className="card p-6 border-line hover:border-circuit/40 transition-colors">
+              <h3 className="font-display text-lg font-semibold text-ink">{w.title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-ink-dim">{w.detail}</p>
             </div>
           ))}
         </div>

@@ -38,7 +38,7 @@ export function PageLoader() {
       <div className="mb-8">
         <LoadingSpinner size={130} />
       </div>
-      <p className="font-display text-lg font-semibold tracking-wide text-ink uppercase">
+      <p className="font-display text-lg font-semibold tracking-wide text-chrome-bright uppercase">
         LAW<span className="text-circuit">TRONIC</span>
       </p>
       <p className="mt-1 font-mono text-[9px] uppercase tracking-[0.25em] text-ink-muted animate-pulse">

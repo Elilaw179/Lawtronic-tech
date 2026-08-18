@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Search } from 'lucide-react';
+import SmartImage from '../../components/ui/SmartImage';
 import StatusBadge from '../../components/ui/StatusBadge';
 import { COLLECTIONS, listDocs } from '../../firebase/firestore';
 import { mockProjects } from '../../data/mockData';
@@ -102,15 +103,12 @@ export default function Projects() {
               className="card-interactive group flex flex-col overflow-hidden p-0"
             >
               {project.coverImage && (
-                <div className="aspect-[16/10] overflow-hidden relative border-b border-line">
-                  <img
-                    src={project.coverImage}
-                    alt={project.title}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-panel via-panel/20 to-transparent" />
-                  <div className="scan-line hidden group-hover:block" />
-                </div>
+                <SmartImage
+                  src={project.coverImage}
+                  alt={project.title}
+                  className="aspect-[16/10] w-full"
+                  fit="smart"
+                />
               )}
               <div className="p-6 flex-1 flex flex-col">
                 <div className="mb-3 flex items-center justify-between gap-2">

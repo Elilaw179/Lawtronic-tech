@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { CheckCircle2, Circle, ArrowLeft } from 'lucide-react';
+import SmartImage from '../../components/ui/SmartImage';
 import StatusBadge from '../../components/ui/StatusBadge';
 import { COLLECTIONS, listDocs } from '../../firebase/firestore';
 import { mockProjects, mockTeam } from '../../data/mockData';
@@ -61,14 +62,13 @@ export default function ProjectDetail() {
       <p className="mt-4 text-lg leading-relaxed text-ink-dim">{project.summary}</p>
 
       {project.coverImage && (
-        <div className="relative mt-8 overflow-hidden rounded-xl border border-line shadow-elevated aspect-[21/9]">
-          <img
+        <div className="mt-8 overflow-hidden rounded-xl border border-line shadow-elevated">
+          <SmartImage
             src={project.coverImage}
             alt={project.title}
-            className="h-full w-full object-cover object-center"
+            className="aspect-[21/9] w-full"
+            fit="smart"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-void via-void/30 to-transparent" />
-          <div className="scan-line" />
         </div>
       )}
 

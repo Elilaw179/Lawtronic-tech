@@ -39,10 +39,10 @@ export default function Contact() {
 
           <div className="mt-10 space-y-4 text-sm text-ink-dim">
             <p className="flex items-center gap-2.5">
-              <Mail size={16} className="text-circuit" /> hello@lawtronic.tech
+              <Mail size={16} className="text-circuit" /> lawtronictechnologiesltd@gmail.com
             </p>
             <p className="flex items-center gap-2.5">
-              <MapPin size={16} className="text-circuit" /> Port Harcourt, Rivers State, Nigeria
+              <MapPin size={16} className="text-circuit" /> Calabar, Cross River State, Nigeria.
             </p>
           </div>
         </div>

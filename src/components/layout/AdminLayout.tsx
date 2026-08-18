@@ -49,7 +49,7 @@ function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
         <div className="flex items-center gap-2.5">
           <img src="/logo.jpg" alt="" className="h-8 w-8 rounded-full object-cover shadow-glow-sm" />
           <div>
-            <p className="font-display text-sm font-semibold text-ink">
+            <p className="font-display text-sm font-semibold text-chrome-bright">
               LAW<span className="text-circuit">TRONIC</span>
             </p>
             <p className="text-xs text-ink-muted">Admin dashboard</p>
@@ -143,7 +143,7 @@ export default function AdminLayout() {
             >
               <Menu size={20} />
             </button>
-            <p className="font-display text-sm font-semibold text-ink">
+            <p className="font-display text-sm font-semibold text-chrome-bright">
               LAW<span className="text-circuit">TRONIC</span>
               <span className="ml-2 text-xs font-normal text-ink-muted">Admin</span>
             </p>

@@ -14,6 +14,8 @@ import LearningHub from './pages/public/LearningHub';
 import Community from './pages/public/Community';
 import Blog from './pages/public/Blog';
 import BlogPost from './pages/public/BlogPost';
+import Services from './pages/public/Services';
+import Careers from './pages/public/Careers';
 import Team from './pages/public/Team';
 import Contact from './pages/public/Contact';
 
@@ -54,6 +56,8 @@ export default function App() {
         <Route path="/community" element={<Community />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:slug" element={<BlogPost />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/careers" element={<Careers />} />
         <Route path="/team" element={<Team />} />
         <Route path="/contact" element={<Contact />} />
       </Route>

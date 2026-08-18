@@ -24,10 +24,32 @@ export default function LearningHub() {
   return (
     <div className="mx-auto max-w-7xl px-5 py-20 md:px-6 md:py-24">
       <SectionHeader
-        eyebrow="Learning hub"
-        title="Learn robotics, AI, programming & electronics"
-        description="Structured lessons and learning paths, built by the same engineers shipping our projects."
+        eyebrow="Technology Education"
+        title=<span className="text-blue-chrome-animated">Building the Next Generation of African Innovators</span>
+        description="We organize practical learning experiences where participants learn by building, testing, troubleshooting, and solving problems."
       />
+
+      <div className="mb-10 rounded-xl border border-line bg-panel2/30 p-6 max-w-4xl mx-auto">
+        <p className="font-mono text-xs uppercase tracking-wider text-circuit font-semibold mb-3">Our Practical Training Areas:</p>
+        <div className="flex flex-wrap gap-2 text-xs">
+          {[
+            'Robotics',
+            'Embedded Systems',
+            'Electronics',
+            'Artificial Intelligence',
+            'Software Engineering',
+            'Programming',
+            'STEM',
+            'Engineering Thinking',
+            'Innovation & Product Development',
+            'Bootcamps & Workshops',
+          ].map((area) => (
+            <span key={area} className="rounded-md border border-line bg-panel px-3 py-1 text-ink-dim font-medium">
+              {area}
+            </span>
+          ))}
+        </div>
+      </div>
 
       <div className="mb-10 flex flex-wrap justify-center gap-2">
         <button
