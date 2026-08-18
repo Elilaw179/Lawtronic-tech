@@ -4,22 +4,24 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Logo-aligned: deep navy, electric blue, chrome silver
+        // Logo & Brand-aligned: Deep Navy (#0A192F), Electric Blue (#00D4FF), Metallic Silver (#CCCCCC), Orange/Amber (#FF6B00 / #FCA311)
         void: 'rgb(var(--color-void-rgb) / <alpha-value>)',
         panel: 'rgb(var(--color-panel-rgb) / <alpha-value>)',
         panel2: 'rgb(var(--color-panel2-rgb) / <alpha-value>)',
         panel3: 'rgb(var(--color-panel3-rgb) / <alpha-value>)',
         line: 'rgb(var(--color-line-rgb) / <alpha-value>)',
         'line-bright': 'rgb(var(--color-line-bright-rgb) / <alpha-value>)',
-        circuit: 'rgb(var(--color-circuit-rgb) / <alpha-value>)',       // electric blue from logo
+        circuit: 'rgb(var(--color-circuit-rgb) / <alpha-value>)',       // electric blue / cyan (#00D4FF)
         'circuit-bright': 'rgb(var(--color-circuit-bright-rgb) / <alpha-value>)',
         'circuit-dim': 'rgb(var(--color-circuit-dim-rgb) / <alpha-value>)',
-        chrome: 'rgb(var(--color-chrome-rgb) / <alpha-value>)',        // silver from logo
-        'chrome-bright': 'rgb(var(--color-chrome-bright-rgb) / <alpha-value>)',
-        signal: 'rgb(var(--color-signal-rgb) / <alpha-value>)',
+        chrome: 'rgb(var(--color-chrome-rgb) / <alpha-value>)',        // metallic silver (#CCCCCC)
+        'chrome-bright': 'rgb(var(--color-chrome-bright-rgb) / <alpha-value>)', // metallic light gray (#E6E6E6)
+        amber: 'rgb(var(--color-amber-rgb) / <alpha-value>)',         // contrast amber (#FCA311)
+        accent: 'rgb(var(--color-accent-rgb) / <alpha-value>)',       // contrast orange (#FF6B00)
+        signal: 'rgb(var(--color-signal-rgb) / <alpha-value>)',       // orange accent (#FF6B00)
         'signal-dim': 'rgb(var(--color-signal-dim-rgb) / <alpha-value>)',
-        ink: 'rgb(var(--color-ink-rgb) / <alpha-value>)',
-        'ink-dim': 'rgb(var(--color-ink-dim-rgb) / <alpha-value>)',
+        ink: 'rgb(var(--color-ink-rgb) / <alpha-value>)',             // clean white (#FFFFFF)
+        'ink-dim': 'rgb(var(--color-ink-dim-rgb) / <alpha-value>)',   // light text (#F0F4F8)
         'ink-muted': 'rgb(var(--color-ink-muted-rgb) / <alpha-value>)',
         alert: 'rgb(var(--color-alert-rgb) / <alpha-value>)',
         success: 'rgb(var(--color-success-rgb) / <alpha-value>)',

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
+import SmartImage from '../../components/ui/SmartImage';
 import { COLLECTIONS, listDocs } from '../../firebase/firestore';
 import { mockPosts } from '../../data/mockData';
 import type { Post } from '../../types';
@@ -45,14 +46,13 @@ export default function BlogPost() {
       <p className="mt-3 text-sm text-ink-muted">{post.publishedAt}</p>
 
       {post.coverImage && (
-        <div className="relative mt-8 overflow-hidden rounded-xl border border-line shadow-elevated aspect-[21/9]">
-          <img
+        <div className="mt-8 overflow-hidden rounded-xl border border-line shadow-elevated">
+          <SmartImage
             src={post.coverImage}
             alt={post.title}
-            className="h-full w-full object-cover object-center"
+            className="aspect-[21/9] w-full"
+            fit="smart"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-void via-void/30 to-transparent" />
-          <div className="scan-line" />
         </div>
       )}
 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Linkedin } from 'lucide-react';
+import SmartImage from '../../components/ui/SmartImage';
 import SectionHeader from '../../components/ui/SectionHeader';
 import { COLLECTIONS, listDocs } from '../../firebase/firestore';
 import { mockTeam } from '../../data/mockData';
@@ -23,16 +24,15 @@ export default function Team() {
       <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
         {sorted.map((member) => (
           <div key={member.id} className="card-interactive p-6">
-            <div className="mb-5 flex h-36 w-full items-center justify-center overflow-hidden rounded-lg bg-panel2 relative group/photo">
+            <div className="mb-5 flex h-48 w-full items-center justify-center overflow-hidden rounded-lg bg-panel2 relative group/photo">
               {member.photoUrl ? (
-                <>
-                  <img
-                    src={member.photoUrl}
-                    alt={member.name}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="scan-line hidden group-hover:block" />
-                </>
+                <SmartImage
+                  src={member.photoUrl}
+                  alt={member.name}
+                  className="h-full w-full rounded-lg"
+                  position="top"
+                  fit="smart"
+                />
               ) : (
                 <div className="relative flex h-full w-full items-center justify-center bg-gradient-to-br from-panel2 to-panel3 overflow-hidden select-none">
                   {/* Radar/grid background elements */}

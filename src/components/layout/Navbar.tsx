@@ -7,6 +7,7 @@ import ThemeToggle from '../ui/ThemeToggle';
 const NAV_LINKS = [
   { to: '/', label: 'Home' },
   { to: '/about', label: 'About' },
+  { to: '/services', label: 'Services' },
   { to: '/projects', label: 'Projects' },
   { to: '/research', label: 'Research' },
   { to: '/learning', label: 'Learning Hub' },
@@ -140,7 +141,7 @@ export default function Navbar() {
       >
         {/* Drawer header */}
         <div className="flex items-center justify-between border-b border-line px-5 py-4">
-          <span className="font-display text-base font-semibold text-ink">
+          <span className="font-display text-base font-semibold text-chrome-bright">
             LAW<span className="text-circuit">TRONIC</span>
           </span>
           <button

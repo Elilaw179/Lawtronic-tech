@@ -3,22 +3,33 @@
 @tailwind utilities;
 
 :root {
-  --color-void-rgb: 5 11 22;
-  --color-panel-rgb: 10 18 32;
-  --color-panel2-rgb: 15 26 44;
-  --color-panel3-rgb: 22 34 54;
-  --color-line-rgb: 26 42 64;
-  --color-line-bright-rgb: 42 63 92;
-  --color-circuit-rgb: 26 159 255;
-  --color-circuit-bright-rgb: 77 184 255;
-  --color-circuit-dim-rgb: 13 107 181;
-  --color-chrome-rgb: 197 205 216;
-  --color-chrome-bright-rgb: 232 238 246;
-  --color-signal-rgb: 45 212 191;
-  --color-signal-dim-rgb: 26 138 122;
-  --color-ink-rgb: 232 238 246;
-  --color-ink-dim-rgb: 139 155 176;
-  --color-ink-muted-rgb: 90 106 128;
+  /* Primary Colors */
+  --color-void-rgb: 10 25 47;           /* #0A192F - Deep Navy / Dark Blue Background */
+  --color-panel-rgb: 17 34 64;          /* #112240 - Rich Deep Navy Card Surface */
+  --color-panel2-rgb: 27 48 84;         /* #1B3054 - Secondary Elevated Surface */
+  --color-panel3-rgb: 35 61 102;        /* #233D66 - Highlight Surface */
+  --color-line-rgb: 30 58 95;           /* #1E3A5F - Navy Border Line */
+  --color-line-bright-rgb: 46 82 130;   /* #2E5282 - Bright Border */
+
+  /* Electric Blue / Cyan (Highlights & AI text) */
+  --color-circuit-rgb: 0 212 255;       /* #00D4FF - Electric Blue / Cyan Highlight */
+  --color-circuit-bright-rgb: 92 221 255; /* #5CDDFF - Bright Cyan */
+  --color-circuit-dim-rgb: 0 153 204;     /* #0099CC - Dim Cyan */
+
+  /* Secondary / Accent Colors */
+  --color-chrome-rgb: 204 204 204;      /* #CCCCCC - Metallic Silver */
+  --color-chrome-bright-rgb: 230 230 230; /* #E6E6E6 - Metallic Light Gray */
+
+  --color-amber-rgb: 252 163 17;        /* #FCA311 - Amber Contrast */
+  --color-accent-rgb: 255 107 0;        /* #FF6B00 - Vibrant Orange Accent */
+  --color-signal-rgb: 255 107 0;        /* #FF6B00 - Signal Orange */
+  --color-signal-dim-rgb: 204 85 0;      /* #CC5500 - Dim Signal */
+
+  /* Clean White (Main Text) */
+  --color-ink-rgb: 255 255 255;         /* #FFFFFF - Clean White Main Text */
+  --color-ink-dim-rgb: 240 244 248;     /* #F0F4F8 - Light Off-White Subtext */
+  --color-ink-muted-rgb: 148 163 184;   /* #94A3B8 - Muted Text */
+
   --color-alert-rgb: 255 93 93;
   --color-success-rgb: 52 211 153;
 
@@ -126,6 +137,13 @@
            font-medium text-white shadow-glow-sm
            transition-all duration-300 ease-smooth
            hover:bg-circuit-bright hover:shadow-glow active:scale-[0.97]
+           disabled:opacity-50 disabled:pointer-events-none;
+  }
+  .btn-accent {
+    @apply inline-flex items-center justify-center gap-2 rounded-md bg-accent px-5 py-2.5
+           font-medium text-white shadow-[0_0_20px_-4px_rgba(255,107,0,0.4)]
+           transition-all duration-200 ease-smooth
+           hover:bg-amber hover:shadow-[0_0_28px_-4px_rgba(252,163,17,0.5)] active:scale-[0.98]
            disabled:opacity-50 disabled:pointer-events-none;
   }
   .btn-ghost {

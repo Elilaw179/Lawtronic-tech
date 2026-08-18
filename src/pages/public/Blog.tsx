@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import SmartImage from '../../components/ui/SmartImage';
 import SectionHeader from '../../components/ui/SectionHeader';
 import { COLLECTIONS, listDocs } from '../../firebase/firestore';
 import { mockPosts } from '../../data/mockData';
@@ -30,14 +31,13 @@ export default function Blog() {
           >
             <div className="flex flex-col md:flex-row">
               {post.coverImage && (
-                <div className="w-full md:w-56 shrink-0 aspect-[16/10] md:aspect-auto overflow-hidden relative border-b md:border-b-0 md:border-r border-line">
-                  <img
+                <div className="w-full md:w-56 shrink-0 aspect-[16/10] md:aspect-auto">
+                  <SmartImage
                     src={post.coverImage}
                     alt={post.title}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="h-full w-full"
+                    fit="smart"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-void/40 to-transparent" />
-                  <div className="scan-line hidden group-hover:block" />
                 </div>
               )}
               <div className="p-6 md:p-8 flex-1 flex flex-col justify-between">
