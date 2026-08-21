@@ -73,11 +73,13 @@ export default function Navbar() {
             className="group flex select-none items-center gap-2.5 transition-opacity hover:opacity-95"
             aria-label="Lawtronic Technologies home"
           >
-            <img
-              src="/logo.jpg"
-              alt=""
-              className="h-9 w-9 rounded-full object-cover ring-2 ring-circuit/30 shadow-glow-sm transition-transform duration-300 group-hover:scale-105 group-hover:ring-circuit/60"
-            />
+            <div className="h-9 w-9 rounded-full overflow-hidden ring-2 ring-circuit/30 shadow-glow-sm transition-transform duration-300 group-hover:scale-105 group-hover:ring-circuit/60 shrink-0">
+              <img
+                src="/logo2.png"
+                alt=""
+                className="logo-blend h-full w-full object-cover"
+              />
+            </div>
             <span className="font-display text-base font-bold tracking-tight text-ink sm:text-lg">
               LAW<span className="text-circuit">TRONIC</span>
             </span>
@@ -141,9 +143,18 @@ export default function Navbar() {
       >
         {/* Drawer header */}
         <div className="flex items-center justify-between border-b border-line px-5 py-4">
-          <span className="font-display text-base font-semibold text-chrome-bright">
-            LAW<span className="text-circuit">TRONIC</span>
-          </span>
+          <div className="flex items-center gap-2.5">
+            <div className="h-8 w-8 rounded-full overflow-hidden ring-2 ring-circuit/30 shrink-0">
+              <img
+                src="/logo2.png"
+                alt=""
+                className="logo-blend h-full w-full object-cover"
+              />
+            </div>
+            <span className="font-display text-base font-semibold text-chrome-bright">
+              LAW<span className="text-circuit">TRONIC</span>
+            </span>
+          </div>
           <button
             onClick={() => setMobileOpen(false)}
             className="flex h-8 w-8 items-center justify-center rounded-lg border border-line text-ink-dim hover:text-ink"

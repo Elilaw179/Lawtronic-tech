@@ -31,12 +31,13 @@ export default function Blog() {
           >
             <div className="flex flex-col md:flex-row">
               {post.coverImage && (
-                <div className="w-full md:w-56 shrink-0 aspect-[16/10] md:aspect-auto">
+                <div className="w-full md:w-52 shrink-0">
                   <SmartImage
                     src={post.coverImage}
                     alt={post.title}
-                    className="h-full w-full"
+                    className="aspect-[16/9] w-full md:aspect-auto md:h-full"
                     fit="smart"
+                    overlay="soft"
                   />
                 </div>
               )}
