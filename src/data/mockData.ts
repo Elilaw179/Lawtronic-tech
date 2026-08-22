@@ -13,6 +13,7 @@ export const mockProjects: Project[] = [
     category: 'Robotics / Embedded Systems',
     status: 'Prototype',
     coverImage: '/assets/projects/2wd-robot.jpg',
+    tags: ['Arduino', 'Embedded C++', 'Sensors', 'Robotics'],
     teamIds: ['1', '2'],
     milestones: [
       { id: 'm1', label: 'Hardware BOM & Chassis assembly', done: true },
@@ -33,6 +34,7 @@ export const mockProjects: Project[] = [
     category: 'AI & Education',
     status: 'Development',
     coverImage: '/assets/projects/vision-kit.jpg',
+    tags: ['Computer Vision', 'Python', 'STEM', 'Microcontrollers'],
     teamIds: ['1', '2', '3'],
     milestones: [
       { id: 'm1', label: 'Curriculum & Lab manual draft', done: true },
@@ -52,6 +54,7 @@ export const mockProjects: Project[] = [
     category: 'Automation',
     status: 'Research',
     coverImage: '/assets/projects/grid-watch.jpg',
+    tags: ['IoT', 'Telemetry', 'Automation', 'Sensors'],
     teamIds: ['1', '3'],
     milestones: [{ id: 'm1', label: 'Literature review & Architecture design', done: true }],
     featured: true,

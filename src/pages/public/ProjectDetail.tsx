@@ -61,16 +61,14 @@ export default function ProjectDetail() {
       </h1>
       <p className="mt-4 text-lg leading-relaxed text-ink-dim">{project.summary}</p>
 
-      {project.coverImage && (
-        <div className="mt-8 overflow-hidden rounded-xl border border-line shadow-elevated">
-          <SmartImage
-            src={project.coverImage}
-            alt={project.title}
-            className="aspect-[21/9] w-full"
-            fit="smart"
-          />
-        </div>
-      )}
+      <div className="group mt-8 overflow-hidden rounded-2xl border border-line/60 bg-void shadow-card">
+        <SmartImage
+          src={project.coverImage || ''}
+          alt={project.title}
+          className="aspect-[16/9] w-full"
+          fit="smart"
+        />
+      </div>
 
       <div className="circuit-divider my-12" />
 

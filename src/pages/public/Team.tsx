@@ -13,14 +13,14 @@ function MemberPhoto({ src, name }: { src?: string; name: string }) {
 
   if (!src || error) {
     return (
-      <div className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl border border-line bg-gradient-to-br from-panel2 to-panel3 select-none flex items-center justify-center">
+      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-t-2xl border-b border-line bg-gradient-to-br from-panel2 to-panel3 select-none flex items-center justify-center">
         {/* Animated radar rings */}
-        <div className="absolute h-28 w-28 rounded-full border border-circuit/10 animate-ping opacity-20" />
-        <div className="absolute h-20 w-20 rounded-full border border-circuit/15" />
-        <div className="absolute h-12 w-12 rounded-full border border-circuit/25" />
+        <div className="absolute h-20 w-20 rounded-full border border-circuit/10 animate-ping opacity-20" />
+        <div className="absolute h-16 w-16 rounded-full border border-circuit/15" />
+        <div className="absolute h-10 w-10 rounded-full border border-circuit/25" />
         <div className="scan-line" />
         {/* Initials badge */}
-        <span className="relative z-10 font-display text-4xl font-bold text-circuit [text-shadow:0_0_16px_currentColor]">
+        <span className="relative z-10 font-display text-3xl font-bold text-circuit [text-shadow:0_0_16px_currentColor]">
           {initials}
         </span>
       </div>
@@ -28,7 +28,7 @@ function MemberPhoto({ src, name }: { src?: string; name: string }) {
   }
 
   return (
-    <div className="group/photo relative aspect-[3/4] w-full overflow-hidden rounded-2xl border border-line/60 bg-void shadow-card">
+    <div className="group/photo relative aspect-[4/3] w-full overflow-hidden rounded-t-2xl border-b border-line/60 bg-void shadow-card">
       {/* Loading skeleton */}
       {!loaded && (
         <div className="absolute inset-0 z-20 flex items-center justify-center bg-panel2 animate-pulse">
@@ -51,12 +51,12 @@ function MemberPhoto({ src, name }: { src?: string; name: string }) {
         className={`absolute inset-0 h-full w-full object-cover transition-all duration-700 group-hover/photo:scale-[1.06] ${
           loaded ? 'opacity-100' : 'opacity-0'
         }`}
-        style={{ objectPosition: '50% 15%' }}
+        style={{ objectPosition: '50% 25%' }}
         loading="lazy"
       />
 
       {/* Bottom gradient fade — professional & tasteful */}
-      <div className="absolute inset-0 bg-gradient-to-t from-panel/80 via-panel/20 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent pointer-events-none" />
 
       {/* Subtle top vignette */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-transparent pointer-events-none" />
@@ -65,7 +65,7 @@ function MemberPhoto({ src, name }: { src?: string; name: string }) {
       <div className="scan-line z-10 opacity-0 group-hover/photo:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
       {/* Hover border glow */}
-      <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-circuit/0 group-hover/photo:ring-circuit/30 transition-all duration-500 pointer-events-none" />
+      <div className="absolute inset-0 rounded-t-2xl ring-1 ring-inset ring-circuit/0 group-hover/photo:ring-circuit/30 transition-all duration-500 pointer-events-none" />
     </div>
   );
 }

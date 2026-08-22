@@ -16,6 +16,7 @@ export interface Project {
   status: ProjectStatus;
   coverImage: string;
   gallery?: string[];
+  tags?: string[];
   teamIds: string[];
   milestones: { id: string; label: string; done: boolean; date?: string }[];
   featured: boolean;
@@ -109,4 +110,16 @@ export interface DashboardStats {
   totalResearch: number;
   totalPosts: number;
   totalTeamMembers: number;
+}
+
+export interface HeroSettings {
+  id: string;
+  bgImage: string;
+  overlayOpacity: number;
+  eyebrow?: string;
+  headline?: string;
+  subheading?: string;
+  primaryBtnLabel?: string;
+  secondaryBtnLabel?: string;
+  updatedAt?: string;
 }

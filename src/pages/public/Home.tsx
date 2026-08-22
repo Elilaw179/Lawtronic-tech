@@ -1,11 +1,11 @@
-﻿import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Cpu, Bot, CircuitBoard, GraduationCap, Zap, Code, Brain, ChevronRight, CheckCircle2, Factory, HeartPulse, Leaf, Building2, Layers, Compass } from 'lucide-react';
 import SectionHeader from '../../components/ui/SectionHeader';
 import StatusBadge from '../../components/ui/StatusBadge';
-import { COLLECTIONS, listDocs } from '../../firebase/firestore';
+import { COLLECTIONS, listDocs, getDocById } from '../../firebase/firestore';
 import { mockProjects, mockPosts } from '../../data/mockData';
-import type { Project, Post } from '../../types';
+import type { Project, Post, HeroSettings } from '../../types';
 
 const WHAT_WE_DO = [
   {
@@ -108,6 +108,7 @@ function HeroCircuit() {
 export default function Home() {
   const [projects, setProjects] = useState<Project[]>(mockProjects);
   const [posts, setPosts] = useState<Post[]>(mockPosts);
+  const [heroSettings, setHeroSettings] = useState<HeroSettings | null>(null);
 
   useEffect(() => {
     listDocs<Project>(COLLECTIONS.projects)
@@ -116,47 +117,77 @@ export default function Home() {
     listDocs<Post>(COLLECTIONS.posts)
       .then((docs) => docs.length && setPosts(docs))
       .catch(() => {});
+    getDocById<HeroSettings>(COLLECTIONS.settings, 'hero')
+      .then((setting) => {
+        if (setting && setting.bgImage !== undefined) {
+          setHeroSettings(setting);
+        } else {
+          listDocs<HeroSettings>(COLLECTIONS.settings).then((docs) => {
+            if (docs && docs.length > 0) {
+              setHeroSettings(docs[0]);
+            }
+          });
+        }
+      })
+      .catch(() => {});
   }, []);
 
   const featured = projects.filter((p) => p.featured).slice(0, 3);
 
   return (
     <div>
-      {/* ΓöÇΓöÇ HERO SECTION ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */}
-      <section className="grid-bg relative overflow-hidden border-b border-line">
-        <div className="pointer-events-none absolute inset-0 bg-hero-glow" />
+      {/* ── HERO SECTION ────────────────────────────────────────── */}
+      <section className="grid-bg relative overflow-hidden border-b border-line bg-void">
+        {/* Dynamic Background Image from Admin Panel */}
+        {heroSettings?.bgImage && (
+          <div className="absolute inset-0 z-0 pointer-events-none">
+            <img
+              src={heroSettings.bgImage}
+              alt=""
+              className="h-full w-full object-cover object-center transition-opacity duration-700"
+            />
+            {/* Custom dark overlay with configurable opacity (neutral deep dark tint, independent of theme mode) */}
+            <div
+              className="absolute inset-0 bg-[#0A192F] transition-opacity duration-300"
+              style={{ opacity: heroSettings.overlayOpacity ?? 0.65 }}
+            />
+          </div>
+        )}
+        <div className="pointer-events-none absolute inset-0 bg-hero-glow z-0" />
 
-        <div className="relative mx-auto max-w-7xl px-5 py-20 sm:py-28 md:py-36 md:px-6">
+        <div className="relative z-10 mx-auto max-w-7xl px-5 py-20 sm:py-28 md:py-36 md:px-6">
           <div className="flex flex-col items-center gap-10 lg:flex-row lg:items-center lg:gap-16">
-            {/* Text */}
+            {/* Text — colors always white/cyan regardless of light/dark mode */}
             <div className="flex-1 text-center lg:text-left">
               <p
-                className="eyebrow mb-4 animate-fade-up sm:mb-5"
+                className="mb-4 animate-fade-up sm:mb-5 font-mono text-[0.725rem] uppercase tracking-[0.2em] text-[#00D4FF]"
                 style={{ animationDelay: '0ms', animationFillMode: 'forwards' }}
               >
-                LAWTRONIC TECHNOLOGIES LTD ΓÇó Innovate ΓÇó Automate ΓÇó Elevate
+                {heroSettings?.eyebrow ?? 'LAWTRONIC TECHNOLOGIES LTD • Innovate • Automate • Elevate'}
               </p>
               <h1
-                className="font-display text-3xl font-semibold leading-[1.08] tracking-tight text-ink animate-fade-up sm:text-4xl md:text-5xl lg:text-[3.4rem]"
-                style={{ animationDelay: '100ms', animationFillMode: 'forwards' }}
+                className="font-display text-3xl font-semibold leading-[1.08] tracking-tight animate-fade-up sm:text-4xl md:text-5xl lg:text-[3.4rem]"
+                style={{ animationDelay: '100ms', animationFillMode: 'forwards', color: '#ffffff' }}
               >
-                <span className="text-blue-chrome-animated">Building Intelligent Technology for Africa and Beyond</span>
+                <span className="text-blue-chrome-animated">
+                  {heroSettings?.headline ?? 'Building Intelligent Technology for Africa and Beyond'}
+                </span>
               </h1>
               <p
-                className="mt-5 text-base leading-relaxed text-ink-dim animate-fade-up sm:text-lg md:max-w-2xl mx-auto lg:mx-0"
-                style={{ animationDelay: '220ms', animationFillMode: 'forwards' }}
+                className="mt-5 text-base leading-relaxed animate-fade-up sm:text-lg md:max-w-2xl mx-auto lg:mx-0"
+                style={{ animationDelay: '220ms', animationFillMode: 'forwards', color: 'rgba(240, 244, 248, 0.9)' }}
               >
-                Lawtronic Technologies develops robotics, embedded systems, artificial intelligence, software, and innovative technology solutions designed to solve real-world problems and expand access to advanced technology.
+                {heroSettings?.subheading ?? 'Lawtronic Technologies develops robotics, embedded systems, artificial intelligence, software, and innovative technology solutions designed to solve real-world problems and expand access to advanced technology.'}
               </p>
               <div
                 className="mt-8 flex flex-col sm:flex-row justify-center gap-3.5 animate-fade-up lg:justify-start"
                 style={{ animationDelay: '340ms', animationFillMode: 'forwards' }}
               >
                 <Link to="/projects" className="btn-primary w-full sm:w-auto">
-                  Explore Our Work <ArrowRight size={16} />
+                  {heroSettings?.primaryBtnLabel ?? 'Explore Our Work'} <ArrowRight size={16} />
                 </Link>
                 <Link to="/contact" className="btn-accent w-full sm:w-auto">
-                  Work With Us
+                  {heroSettings?.secondaryBtnLabel ?? 'Work With Us'}
                 </Link>
               </div>
             </div>

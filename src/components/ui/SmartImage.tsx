@@ -23,7 +23,7 @@ interface SmartImageProps {
 export default function SmartImage({
   src,
   alt,
-  className = 'aspect-[16/10] w-full',
+  className = 'aspect-[4/3] w-full',
   imgClassName = '',
   fit = 'smart',
   position = 'center',
@@ -32,6 +32,15 @@ export default function SmartImage({
 }: SmartImageProps) {
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
+
+  const initials = alt
+    ? alt
+        .split(' ')
+        .filter(Boolean)
+        .map((n) => n[0])
+        .join('')
+        .slice(0, 2)
+    : 'LT';
 
   const objectPositionMap: Record<string, string> = {
     center: 'object-center',
@@ -44,30 +53,25 @@ export default function SmartImage({
 
   const overlayClass =
     overlay === 'strong'
-      ? 'bg-gradient-to-t from-panel/90 via-panel/30 to-transparent'
+      ? 'bg-gradient-to-t from-black/80 via-black/25 to-transparent'
       : overlay === 'soft'
-      ? 'bg-gradient-to-t from-panel/65 via-panel/10 to-transparent'
+      ? 'bg-gradient-to-t from-black/55 via-black/10 to-transparent'
       : '';
 
-  /* ── Empty / error state ──────────────────────────────────────── */
+  /* ── Empty / error fallback state ────────────────────────────── */
   if (!src || error) {
     return (
       <div
-        className={`relative flex items-center justify-center overflow-hidden border-b border-line bg-panel2/60 select-none ${className}`}
+        className={`relative flex items-center justify-center overflow-hidden border-b border-line bg-slate-900 select-none ${className}`}
       >
-        <div className="absolute inset-0 opacity-10">
-          {/* subtle grid pattern */}
-          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
-                <path d="M 32 0 L 0 0 0 32" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-circuit" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#grid)" />
-          </svg>
-        </div>
-        <span className="font-display text-sm font-bold tracking-widest text-circuit/30 uppercase">
-          LAWTRONIC
+        {/* Animated radar rings */}
+        <div className="absolute h-20 w-20 rounded-full border border-circuit/10 animate-ping opacity-20" />
+        <div className="absolute h-16 w-16 rounded-full border border-circuit/15" />
+        <div className="absolute h-10 w-10 rounded-full border border-circuit/25" />
+        <div className="scan-line z-10" />
+        {/* Initials badge */}
+        <span className="relative z-10 font-display text-3xl font-bold text-circuit [text-shadow:0_0_16px_currentColor]">
+          {initials}
         </span>
       </div>
     );
@@ -75,31 +79,34 @@ export default function SmartImage({
 
   /* ── Loading skeleton (shared) ────────────────────────────────── */
   const Skeleton = () => (
-    <div className="absolute inset-0 z-20 flex items-center justify-center bg-panel2/80 animate-pulse">
+    <div className="absolute inset-0 z-20 flex items-center justify-center bg-slate-900/80 animate-pulse">
       <div className="h-6 w-6 rounded-full border-2 border-circuit/30 border-t-circuit animate-spin" />
     </div>
   );
 
-  /* ── COVER mode — clean full-bleed, great for photos ─────────── */
+  /* ── COVER mode — clean full-bleed ───────────────────────────── */
   if (fit === 'cover') {
     return (
-      <div className={`relative overflow-hidden border-b border-line bg-void ${className}`}>
+      <div className={`relative overflow-hidden border-b border-line/60 bg-slate-950 shadow-card ${className}`}>
         {!loaded && <Skeleton />}
         <img
           src={src}
           alt={alt}
           onLoad={() => setLoaded(true)}
           onError={() => setError(true)}
-          className={`h-full w-full object-cover ${posClass} transition-all duration-500 group-hover:scale-[1.04] ${
+          className={`h-full w-full object-cover ${posClass} transition-all duration-700 group-hover:scale-[1.06] ${
             loaded ? 'opacity-100' : 'opacity-0'
           } ${imgClassName}`}
+          loading="lazy"
         />
         {overlayClass && (
           <div className={`absolute inset-0 pointer-events-none ${overlayClass}`} />
         )}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-transparent pointer-events-none" />
         {showScanLine && (
           <div className="scan-line z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
         )}
+        <div className="absolute inset-0 ring-1 ring-inset ring-circuit/0 group-hover:ring-circuit/30 transition-all duration-500 pointer-events-none" />
       </div>
     );
   }
@@ -107,76 +114,74 @@ export default function SmartImage({
   /* ── CONTAIN mode — full image visible, ambient fill behind ────── */
   if (fit === 'contain') {
     return (
-      <div className={`relative overflow-hidden border-b border-line bg-void flex items-center justify-center ${className}`}>
-        {/* Ambient blurred background to fill dead space */}
+      <div className={`relative overflow-hidden border-b border-line/60 bg-slate-950 flex items-center justify-center shadow-card ${className}`}>
         <img
           src={src}
           alt=""
           aria-hidden="true"
           className="absolute inset-0 h-full w-full object-cover scale-110 blur-2xl opacity-30 pointer-events-none select-none"
         />
-        <div className="absolute inset-0 bg-panel/40 pointer-events-none" />
+        <div className="absolute inset-0 bg-black/40 pointer-events-none" />
         {!loaded && <Skeleton />}
         <img
           src={src}
           alt={alt}
           onLoad={() => setLoaded(true)}
           onError={() => setError(true)}
-          className={`relative z-10 max-h-full max-w-full object-contain transition-transform duration-500 group-hover:scale-[1.03] drop-shadow-xl ${
+          className={`relative z-10 max-h-full max-w-full object-contain transition-transform duration-700 group-hover:scale-[1.06] drop-shadow-xl ${
             loaded ? 'opacity-100' : 'opacity-0'
           } ${imgClassName}`}
+          loading="lazy"
         />
         {overlayClass && (
           <div className={`absolute inset-0 pointer-events-none z-10 ${overlayClass}`} />
         )}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-transparent pointer-events-none" />
         {showScanLine && (
           <div className="scan-line z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
         )}
+        <div className="absolute inset-0 ring-1 ring-inset ring-circuit/0 group-hover:ring-circuit/30 transition-all duration-500 pointer-events-none" />
       </div>
     );
   }
 
-  /* ── SMART mode (default) ─────────────────────────────────────────
-     Dual-layer: blurred ambient fill + sharp cover image on top.
-     Works perfectly for ANY image type — portrait, landscape, square,
-     diagram, photo, sketch. The cover layer shows the image zoomed
-     slightly so it always fills edge-to-edge, while the ambient layer
-     fills any "dead zones" with matching colour and mood.
-  ──────────────────────────────────────────────────────────────────── */
+  /* ── SMART mode (default) ───────────────────────────────────────── */
   return (
-    <div className={`relative overflow-hidden border-b border-line bg-void ${className}`}>
-      {/* Layer 1: Ambient blurred backfill — eliminates letterboxing */}
+    <div className={`relative overflow-hidden border-b border-line/60 bg-slate-950 shadow-card ${className}`}>
+      {/* Layer 1: Ambient blurred backfill */}
       <img
         src={src}
         alt=""
         aria-hidden="true"
-        className="absolute inset-0 h-full w-full object-cover scale-125 blur-xl opacity-50 pointer-events-none select-none"
+        className="absolute inset-0 h-full w-full object-cover scale-125 blur-xl opacity-40 pointer-events-none select-none"
       />
 
-      {/* Layer 2: Dark tint to unify tone and ensure contrast */}
-      <div className="absolute inset-0 bg-panel/45 pointer-events-none" />
+      {/* Layer 2: Neutral dark tint (never affected by light-mode sky blue) */}
+      <div className="absolute inset-0 bg-black/35 pointer-events-none" />
 
-      {/* Layer 3: Sharp foreground image — covers the frame cleanly */}
+      {/* Layer 3: Sharp foreground image */}
       {!loaded && <Skeleton />}
       <img
         src={src}
         alt={alt}
         onLoad={() => setLoaded(true)}
         onError={() => setError(true)}
-        className={`absolute inset-0 h-full w-full object-cover ${posClass} transition-all duration-500 group-hover:scale-[1.04] ${
+        className={`absolute inset-0 h-full w-full object-cover ${posClass} transition-all duration-700 group-hover:scale-[1.06] ${
           loaded ? 'opacity-100' : 'opacity-0'
         } ${imgClassName}`}
+        loading="lazy"
       />
 
-      {/* Layer 4: Bottom gradient overlay for text legibility */}
+      {/* Layer 4: Gradient overlays & hover effects */}
       {overlayClass && (
         <div className={`absolute inset-0 pointer-events-none z-10 ${overlayClass}`} />
       )}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-transparent pointer-events-none z-10" />
 
-      {/* Sci-fi scan line on hover */}
       {showScanLine && (
         <div className="scan-line z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
       )}
+      <div className="absolute inset-0 ring-1 ring-inset ring-circuit/0 group-hover:ring-circuit/30 transition-all duration-500 pointer-events-none z-20" />
     </div>
   );
 }

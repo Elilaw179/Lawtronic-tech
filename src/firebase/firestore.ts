@@ -2,6 +2,7 @@ import {
   collection,
   doc,
   addDoc,
+  setDoc,
   updateDoc,
   deleteDoc,
   getDocs,
@@ -29,6 +30,7 @@ export const COLLECTIONS = {
   subscribers: 'subscribers',
   announcements: 'announcements',
   contacts: 'contacts',
+  settings: 'settings',
 } as const;
 
 function requireDb() {
@@ -98,6 +100,39 @@ export async function createDoc<T extends object>(collectionName: string, data: 
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
   });
+}
+
+export async function setDocWithId<T extends object>(
+  collectionName: string,
+  id: string,
+  data: T
+) {
+  if (!isFirebaseConfigured || !db) {
+    const storageKey = `lawtronic_mock_db_${collectionName}`;
+    const list = await listDocs<any>(collectionName);
+    const index = list.findIndex((item: any) => item.id === id);
+    const updatedDoc = {
+      id,
+      ...data,
+      updatedAt: new Date().toISOString().slice(0, 10),
+    };
+    if (index !== -1) {
+      list[index] = { ...list[index], ...updatedDoc };
+    } else {
+      list.push(updatedDoc);
+    }
+    localStorage.setItem(storageKey, JSON.stringify(list));
+    return;
+  }
+  const database = requireDb();
+  return setDoc(
+    doc(database, collectionName, id),
+    {
+      ...data,
+      updatedAt: serverTimestamp(),
+    },
+    { merge: true }
+  );
 }
 
 export async function updateDocById<T extends object>(

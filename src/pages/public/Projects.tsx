@@ -95,32 +95,45 @@ export default function Projects() {
       {filtered.length === 0 ? (
         <p className="py-20 text-center text-ink-dim">No projects match those filters yet.</p>
       ) : (
-        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+        <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
           {filtered.map((project) => (
             <Link
               key={project.id}
               to={`/projects/${project.slug}`}
               className="card-interactive group flex flex-col overflow-hidden p-0"
             >
-              {project.coverImage && (
-                <SmartImage
-                  src={project.coverImage}
-                  alt={project.title}
-                  className="aspect-[16/10] w-full"
-                  fit="smart"
-                />
-              )}
-              <div className="p-6 flex-1 flex flex-col">
+              <SmartImage
+                src={project.coverImage || ''}
+                alt={project.title}
+                className="aspect-[4/3] w-full"
+                fit="smart"
+              />
+              <div className="flex flex-1 flex-col p-6">
                 <div className="mb-3 flex items-center justify-between gap-2">
-                  <span className="font-mono text-[10px] uppercase tracking-wider text-circuit">
+                  <span className="font-mono text-[10px] uppercase tracking-wider text-circuit font-semibold">
                     {project.category}
                   </span>
                   <StatusBadge status={project.status} />
                 </div>
-                <h3 className="font-display text-lg font-semibold text-ink transition-colors group-hover:text-circuit-bright">
+                <h3 className="font-display text-lg font-semibold text-ink group-hover:text-circuit-bright transition-colors duration-300">
                   {project.title}
                 </h3>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-dim line-clamp-3">{project.summary}</p>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-dim line-clamp-3">
+                  {project.summary}
+                </p>
+
+                {(project.tags ?? []).length > 0 && (
+                  <div className="mt-4 flex flex-wrap gap-1.5">
+                    {(project.tags ?? []).map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-md border border-line bg-panel2/60 px-2 py-0.5 text-[11px] font-mono text-ink-muted"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
             </Link>
           ))}

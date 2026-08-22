@@ -20,6 +20,7 @@ import Team from './pages/public/Team';
 import Contact from './pages/public/Contact';
 
 import Dashboard from './pages/admin/Dashboard';
+import ManageHero from './pages/admin/ManageHero';
 import ManageProjects from './pages/admin/ManageProjects';
 import ManageResearch from './pages/admin/ManageResearch';
 import ManagePosts from './pages/admin/ManagePosts';
@@ -71,6 +72,7 @@ export default function App() {
         }
       >
         <Route path="dashboard" element={<Dashboard />} />
+        <Route path="hero" element={<ManageHero />} />
         <Route path="projects" element={<ManageProjects />} />
         <Route path="research" element={<ManageResearch />} />
         <Route path="posts" element={<ManagePosts />} />

@@ -15,6 +15,7 @@ import {
   X,
   MessageSquare,
   Home,
+  Image as ImageIcon,
 } from 'lucide-react';
 import { logoutAdmin } from '../../firebase/auth';
 import { useAuth } from '../../context/AuthContext';
@@ -22,6 +23,7 @@ import ThemeToggle from '../ui/ThemeToggle';
 
 const NAV_ITEMS = [
   { to: '/admin/dashboard', label: 'Overview', icon: LayoutDashboard },
+  { to: '/admin/hero', label: 'Hero Banner', icon: ImageIcon },
   { to: '/admin/projects', label: 'Projects', icon: FolderKanban },
   { to: '/admin/research', label: 'Research', icon: FlaskConical },
   { to: '/admin/posts', label: 'Blog & News', icon: Newspaper },

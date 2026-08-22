@@ -195,7 +195,7 @@
     aspect-ratio: 16 / 10;
     overflow: hidden;
     border-bottom: 1px solid rgb(var(--color-line-rgb));
-    background: rgb(var(--color-void-rgb));
+    background: #0a192f;
     /* Ensures child img fills perfectly */
     & img {
       width: 100%;
