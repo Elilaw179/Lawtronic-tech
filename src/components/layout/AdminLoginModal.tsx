@@ -48,11 +48,13 @@ export default function AdminLoginModal({ open, onClose }: { open: boolean; onCl
         </button>
 
         <div className="mb-6 flex items-center gap-3">
-          <img
-            src="/logo.jpg"
-            alt=""
-            className="h-11 w-11 rounded-full object-cover shadow-glow-sm"
-          />
+          <div className="h-11 w-11 rounded-full overflow-hidden ring-2 ring-circuit/30 shrink-0">
+            <img
+              src="/logo2.png"
+              alt=""
+              className="logo-blend h-full w-full object-cover shadow-glow-sm"
+            />
+          </div>
           <div>
             <p className="eyebrow">Restricted access</p>
             <h2 className="font-display text-lg font-semibold text-ink">Administrator sign in</h2>

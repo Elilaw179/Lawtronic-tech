@@ -1,6 +1,13 @@
 import { useState, type FormEvent } from 'react';
-import { Mail, MapPin } from 'lucide-react';
+import { Mail, MapPin, Navigation, ExternalLink } from 'lucide-react';
 import { createDoc, COLLECTIONS } from '../../firebase/firestore';
+
+// Google Maps embed using free iframe embed — no API key required
+const MAPS_EMBED_URL =
+  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63652.30019756487!2d8.28745!3d4.9741667!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1067741e7b64ec81%3A0xbfafb1ae41e6f71e!2sCalabar%2C%20Cross%20River!5e0!3m2!1sen!2sng!4v1692000000000!5m2!1sen!2sng';
+
+const MAPS_LINK =
+  'https://www.google.com/maps/place/Calabar,+Cross+River+State,+Nigeria/@4.9741667,8.28745,13z';
 
 export default function Contact() {
   const [form, setForm] = useState({
@@ -41,9 +48,17 @@ export default function Contact() {
             <p className="flex items-center gap-2.5">
               <Mail size={16} className="text-circuit" /> lawtronictechnologiesltd@gmail.com
             </p>
-            <p className="flex items-center gap-2.5">
-              <MapPin size={16} className="text-circuit" /> Calabar, Cross River State, Nigeria.
-            </p>
+            {/* Clickable location that opens Google Maps */}
+            <a
+              href={MAPS_LINK}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-2.5 hover:text-circuit transition-colors group"
+            >
+              <MapPin size={16} className="text-circuit group-hover:animate-bounce" />
+              <span>Calabar, Cross River State, Nigeria</span>
+              <ExternalLink size={12} className="ml-1 opacity-50 group-hover:opacity-100" />
+            </a>
           </div>
 
           {/* Social media links */}
@@ -178,6 +193,99 @@ export default function Contact() {
           )}
         </form>
       </div>
+
+      {/* ── GOOGLE MAPS SECTION ───────────────────────────────────── */}
+      <div className="mt-20">
+        <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p className="eyebrow mb-1">Find Us</p>
+            <h2 className="font-display text-2xl font-semibold tracking-tight text-ink">
+              Our Location
+            </h2>
+            <p className="mt-1.5 text-sm text-ink-dim flex items-center gap-1.5">
+              <MapPin size={14} className="text-circuit shrink-0" />
+              Calabar, Cross River State, Nigeria
+            </p>
+          </div>
+          <a
+            href={MAPS_LINK}
+            target="_blank"
+            rel="noreferrer"
+            className="btn-ghost text-sm flex items-center gap-2 self-start sm:self-auto"
+          >
+            <Navigation size={15} />
+            Get Directions
+          </a>
+        </div>
+
+        {/* Interactive Google Maps embed */}
+        <div className="relative overflow-hidden rounded-2xl border border-line shadow-elevated">
+          {/* Decorative top border glow */}
+          <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-circuit/50 to-transparent z-10 pointer-events-none" />
+          
+          <iframe
+            title="Lawtronic Technologies Location — Calabar, Nigeria"
+            src={MAPS_EMBED_URL}
+            width="100%"
+            height="420"
+            style={{ border: 0, display: 'block', filter: 'hue-rotate(185deg) saturate(0.9) brightness(0.85)' }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            className="w-full"
+          />
+
+          {/* Overlay: bottom gradient for seamless blend */}
+          <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-panel/20 to-transparent z-10" />
+        </div>
+
+        {/* Quick info cards below map */}
+        <div className="mt-6 grid gap-4 sm:grid-cols-3">
+          <div className="rounded-xl border border-line bg-panel2/50 p-4 flex items-start gap-3">
+            <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-circuit/10 text-circuit">
+              <MapPin size={16} />
+            </div>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wider text-ink-dim mb-0.5">Address</p>
+              <p className="text-sm text-ink">Calabar, Cross River State, Nigeria</p>
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-line bg-panel2/50 p-4 flex items-start gap-3">
+            <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-circuit/10 text-circuit">
+              <Mail size={16} />
+            </div>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wider text-ink-dim mb-0.5">Email</p>
+              <a
+                href="mailto:lawtronictechnologiesltd@gmail.com"
+                className="text-sm text-ink hover:text-circuit transition-colors break-all"
+              >
+                lawtronictechnologiesltd@gmail.com
+              </a>
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-line bg-panel2/50 p-4 flex items-start gap-3">
+            <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-circuit/10 text-circuit">
+              <Navigation size={16} />
+            </div>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wider text-ink-dim mb-0.5">Directions</p>
+              <a
+                href={MAPS_LINK}
+                target="_blank"
+                rel="noreferrer"
+                className="text-sm text-circuit hover:text-circuit-bright transition-colors flex items-center gap-1"
+              >
+                Open in Google Maps <ExternalLink size={12} />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
+
+

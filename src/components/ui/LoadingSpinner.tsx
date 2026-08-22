@@ -20,9 +20,9 @@ export default function LoadingSpinner({ size = 120 }: { size?: number }) {
       {/* Center logo mask */}
       <div className="absolute w-[76%] h-[76%] rounded-full overflow-hidden border border-line bg-void flex items-center justify-center p-0.5 z-10 shadow-glow">
         <img
-          src="/logo.jpg"
+          src="/logo2.png"
           alt="Lawtronic Logo"
-          className="w-full h-full rounded-full object-cover"
+          className="w-full h-full rounded-full object-cover logo-blend"
         />
       </div>
 

@@ -49,7 +49,9 @@ function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
     <>
       <div className="border-b border-line px-5 py-5">
         <div className="flex items-center gap-2.5">
-          <img src="/logo.jpg" alt="" className="h-8 w-8 rounded-full object-cover shadow-glow-sm" />
+          <div className="h-8 w-8 rounded-full overflow-hidden ring-2 ring-circuit/30 shrink-0">
+            <img src="/logo2.png" alt="" className="logo-blend h-full w-full object-cover shadow-glow-sm" />
+          </div>
           <div>
             <p className="font-display text-sm font-semibold text-chrome-bright">
               LAW<span className="text-circuit">TRONIC</span>
