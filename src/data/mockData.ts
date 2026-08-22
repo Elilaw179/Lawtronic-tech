@@ -223,6 +223,7 @@ export const mockCourses: Course[] = [
     track: 'Robotics',
     level: 'Beginner',
     description: 'Build your first line-following robot while learning embedded C fundamentals.',
+    coverImage: '/assets/projects/2wd-robot.jpg',
     lessons: [
       { id: 'l1', title: 'What is a microcontroller?', durationMin: 12 },
       { id: 'l2', title: 'Reading a sensor', durationMin: 18 },
@@ -236,6 +237,7 @@ export const mockCourses: Course[] = [
     track: 'AI',
     level: 'Intermediate',
     description: 'Train and deploy a simple image classifier to an edge device.',
+    coverImage: '/assets/projects/vision-kit.jpg',
     lessons: [{ id: 'l1', title: 'Collecting a dataset', durationMin: 15 }],
     published: true,
   },

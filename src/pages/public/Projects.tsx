@@ -93,24 +93,25 @@ export default function Projects() {
       </div>
 
       {filtered.length === 0 ? (
-        <p className="py-20 text-center text-ink-dim">No projects match those filters yet.</p>
+        <p className="py-20 text-center text-ink-dim animate-fade-in">No projects match those filters yet.</p>
       ) : (
-        <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
+        <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 stagger">
           {filtered.map((project) => (
             <Link
               key={project.id}
               to={`/projects/${project.slug}`}
-              className="card-interactive group flex flex-col overflow-hidden p-0"
+              className="tech-card card-spotlight group flex flex-col overflow-hidden p-0"
             >
               <SmartImage
                 src={project.coverImage || ''}
                 alt={project.title}
                 className="aspect-[4/3] w-full"
-                fit="smart"
+                fit="cover"
               />
               <div className="flex flex-1 flex-col p-6">
                 <div className="mb-3 flex items-center justify-between gap-2">
-                  <span className="font-mono text-[10px] uppercase tracking-wider text-circuit font-semibold">
+                  <span className="font-mono text-[10px] uppercase tracking-wider text-circuit font-semibold flex items-center gap-1.5">
+                    <span className="h-1.5 w-1.5 rounded-full bg-circuit tech-pulse-dot" />
                     {project.category}
                   </span>
                   <StatusBadge status={project.status} />
@@ -127,7 +128,7 @@ export default function Projects() {
                     {(project.tags ?? []).map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-md border border-line bg-panel2/60 px-2 py-0.5 text-[11px] font-mono text-ink-muted"
+                        className="rounded-md border border-line bg-panel2/60 px-2 py-0.5 text-[11px] font-mono text-ink-muted group-hover:border-circuit/30 transition-colors"
                       >
                         {tag}
                       </span>

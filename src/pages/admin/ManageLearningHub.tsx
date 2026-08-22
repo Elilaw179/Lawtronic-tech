@@ -4,11 +4,12 @@ import Modal from '../../components/ui/Modal';
 import { COLLECTIONS, listDocs, createDoc, updateDocById, deleteDocById } from '../../firebase/firestore';
 import type { Course } from '../../types';
 import { mockCourses } from '../../data/mockData';
+import FileUploader from '../../components/ui/FileUploader';
 
 const TRACKS: Course['track'][] = ['Robotics', 'AI', 'Programming', 'Electronics'];
 const LEVELS: Course['level'][] = ['Beginner', 'Intermediate', 'Advanced'];
 
-const emptyForm = { title: '', track: 'Robotics' as Course['track'], level: 'Beginner' as Course['level'], description: '', published: false };
+const emptyForm = { title: '', track: 'Robotics' as Course['track'], level: 'Beginner' as Course['level'], description: '', coverImage: '', published: false };
 
 export default function ManageLearningHub() {
   const [courses, setCourses] = useState<Course[]>([]);
@@ -40,7 +41,14 @@ export default function ManageLearningHub() {
 
   function openEdit(course: Course) {
     setEditing(course);
-    setForm({ title: course.title, track: course.track, level: course.level, description: course.description, published: course.published });
+    setForm({
+      title: course.title,
+      track: course.track,
+      level: course.level,
+      description: course.description,
+      coverImage: course.coverImage ?? '',
+      published: course.published,
+    });
     setModalOpen(true);
   }
 
@@ -105,11 +113,16 @@ export default function ManageLearningHub() {
           </thead>
           <tbody>
             {loading ? (
-              <tr><td className="px-5 py-6 text-ink-dim" colSpan={5}>Loading\u2026</td></tr>
+              <tr><td className="px-5 py-6 text-ink-dim" colSpan={5}>Loading…</td></tr>
             ) : (
               courses.map((c) => (
                 <tr key={c.id} className="border-b border-line last:border-none">
-                  <td className="px-5 py-4 text-ink">{c.title}</td>
+                  <td className="px-5 py-4 text-ink flex items-center gap-3">
+                    {c.coverImage && (
+                      <img src={c.coverImage} alt="" className="h-8 w-12 rounded object-cover border border-line" />
+                    )}
+                    <span>{c.title}</span>
+                  </td>
                   <td className="px-5 py-4 text-ink-dim">{c.track}</td>
                   <td className="px-5 py-4 text-ink-dim">{c.level}</td>
                   <td className="px-5 py-4 text-ink-dim">{c.published ? 'Yes' : 'Draft'}</td>
@@ -136,6 +149,16 @@ export default function ManageLearningHub() {
             {LEVELS.map((l) => <option key={l} value={l}>{l}</option>)}
           </select>
           <textarea required rows={3} placeholder="Description" value={form.description} onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))} className="admin-input" />
+          
+          <FileUploader
+            label="Course Cover Image"
+            accept="image/*"
+            storagePath="courses"
+            value={form.coverImage}
+            onChange={(url) => setForm((f) => ({ ...f, coverImage: url }))}
+            isImage={true}
+          />
+
           <p className="text-xs text-ink-dim">Add lessons and video uploads from the course's detail screen after creating it.</p>
           <label className="flex items-center gap-2 text-sm text-ink-dim">
             <input type="checkbox" checked={form.published} onChange={(e) => setForm((f) => ({ ...f, published: e.target.checked }))} />

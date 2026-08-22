@@ -85,9 +85,9 @@ export default function Team() {
     <div className="mx-auto max-w-7xl px-5 py-20 md:px-6 md:py-24">
       <SectionHeader eyebrow="The people" title="Team" />
 
-      <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
+      <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 stagger">
         {sorted.map((member) => (
-          <div key={member.id} className="card-interactive group flex flex-col overflow-hidden p-0">
+          <div key={member.id} className="tech-card card-spotlight group flex flex-col overflow-hidden p-0">
             {/* Professional headshot — 3:4 portrait ratio, face-targeted crop */}
             <MemberPhoto src={member.photoUrl} name={member.name} />
 
@@ -96,7 +96,10 @@ export default function Team() {
               <h3 className="font-display text-lg font-semibold text-ink group-hover:text-circuit-bright transition-colors duration-300">
                 {member.name}
               </h3>
-              <p className="mt-0.5 text-sm font-medium text-circuit">{member.role}</p>
+              <p className="mt-0.5 text-sm font-medium text-circuit flex items-center gap-1.5">
+                <span className="h-1.5 w-1.5 rounded-full bg-circuit tech-pulse-dot" />
+                {member.role}
+              </p>
 
               {member.bio && (
                 <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-dim line-clamp-3">
@@ -109,7 +112,7 @@ export default function Team() {
                   {(member.skills ?? []).map((skill) => (
                     <span
                       key={skill}
-                      className="rounded-md border border-line bg-panel2/60 px-2 py-0.5 text-[11px] font-mono text-ink-muted"
+                      className="rounded-md border border-line bg-panel2/60 px-2 py-0.5 text-[11px] font-mono text-ink-muted group-hover:border-circuit/30 transition-colors"
                     >
                       {skill}
                     </span>

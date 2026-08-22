@@ -122,13 +122,13 @@ export default function Contact() {
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="card space-y-5 p-7 md:p-8">
+        <form onSubmit={handleSubmit} className="tech-card card-spotlight space-y-5 p-7 md:p-8">
           <div className="flex gap-2">
             <button
               type="button"
               onClick={() => setForm((f) => ({ ...f, type: 'general' }))}
               className={`flex-1 rounded-lg border px-3 py-2.5 text-sm transition-colors ${form.type === 'general'
-                  ? 'border-circuit/50 bg-circuit/5 text-circuit'
+                  ? 'border-circuit/50 bg-circuit/10 text-circuit font-semibold shadow-glow-sm'
                   : 'border-line text-ink-dim hover:border-line-bright'
                 }`}
             >
@@ -138,7 +138,7 @@ export default function Contact() {
               type="button"
               onClick={() => setForm((f) => ({ ...f, type: 'collaboration' }))}
               className={`flex-1 rounded-lg border px-3 py-2.5 text-sm transition-colors ${form.type === 'collaboration'
-                  ? 'border-circuit/50 bg-circuit/5 text-circuit'
+                  ? 'border-circuit/50 bg-circuit/10 text-circuit font-semibold shadow-glow-sm'
                   : 'border-line text-ink-dim hover:border-line-bright'
                 }`}
             >
@@ -151,7 +151,7 @@ export default function Contact() {
             placeholder="Full name"
             value={form.name}
             onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-            className="input-field"
+            className="input-field focus:border-circuit focus:ring-1 focus:ring-circuit transition-all"
           />
           <input
             required
@@ -159,14 +159,14 @@ export default function Contact() {
             placeholder="Email address"
             value={form.email}
             onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-            className="input-field"
+            className="input-field focus:border-circuit focus:ring-1 focus:ring-circuit transition-all"
           />
           <input
             required
             placeholder="Subject"
             value={form.subject}
             onChange={(e) => setForm((f) => ({ ...f, subject: e.target.value }))}
-            className="input-field"
+            className="input-field focus:border-circuit focus:ring-1 focus:ring-circuit transition-all"
           />
           <textarea
             required
@@ -174,7 +174,7 @@ export default function Contact() {
             placeholder="Message"
             value={form.message}
             onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
-            className="input-field resize-none"
+            className="input-field resize-none focus:border-circuit focus:ring-1 focus:ring-circuit transition-all"
           />
 
           <button type="submit" disabled={status === 'sending'} className="btn-primary w-full text-sm">
@@ -182,12 +182,12 @@ export default function Contact() {
           </button>
 
           {status === 'sent' && (
-            <p className="rounded-lg border border-signal/30 bg-signal/5 px-3 py-2 text-sm text-signal">
+            <p className="rounded-lg border border-signal/30 bg-signal/5 px-3 py-2 text-sm text-signal animate-fade-in">
               Message sent. We&apos;ll reply soon.
             </p>
           )}
           {status === 'error' && (
-            <p className="rounded-lg border border-alert/30 bg-alert/5 px-3 py-2 text-sm text-alert">
+            <p className="rounded-lg border border-alert/30 bg-alert/5 px-3 py-2 text-sm text-alert animate-fade-in">
               Something went wrong. Please try again — or email us directly.
             </p>
           )}
@@ -198,7 +198,10 @@ export default function Contact() {
       <div className="mt-20">
         <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="eyebrow mb-1">Find Us</p>
+            <div className="mb-1 inline-flex items-center gap-1.5">
+              <span className="h-1.5 w-1.5 rounded-full bg-circuit tech-pulse-dot" />
+              <p className="eyebrow">Find Us</p>
+            </div>
             <h2 className="font-display text-2xl font-semibold tracking-tight text-ink">
               Our Location
             </h2>
@@ -211,7 +214,7 @@ export default function Contact() {
             href={MAPS_LINK}
             target="_blank"
             rel="noreferrer"
-            className="btn-ghost text-sm flex items-center gap-2 self-start sm:self-auto"
+            className="btn-ghost text-sm flex items-center gap-2 self-start sm:self-auto hover:text-circuit"
           >
             <Navigation size={15} />
             Get Directions
@@ -219,7 +222,8 @@ export default function Contact() {
         </div>
 
         {/* Interactive Google Maps embed */}
-        <div className="relative overflow-hidden rounded-2xl border border-line shadow-elevated">
+        <div className="relative overflow-hidden rounded-2xl border border-line shadow-elevated group">
+          <div className="scan-line pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" />
           {/* Decorative top border glow */}
           <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-circuit/50 to-transparent z-10 pointer-events-none" />
           
@@ -240,34 +244,34 @@ export default function Contact() {
         </div>
 
         {/* Quick info cards below map */}
-        <div className="mt-6 grid gap-4 sm:grid-cols-3">
-          <div className="rounded-xl border border-line bg-panel2/50 p-4 flex items-start gap-3">
-            <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-circuit/10 text-circuit">
+        <div className="mt-6 grid gap-4 sm:grid-cols-3 stagger">
+          <div className="tech-card card-spotlight p-4 flex items-start gap-3 group">
+            <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-circuit/10 text-circuit group-hover:bg-circuit group-hover:text-void transition-colors duration-300">
               <MapPin size={16} />
             </div>
             <div>
               <p className="text-xs font-semibold uppercase tracking-wider text-ink-dim mb-0.5">Address</p>
-              <p className="text-sm text-ink">Calabar, Cross River State, Nigeria</p>
+              <p className="text-sm text-ink font-medium">Calabar, Cross River State, Nigeria</p>
             </div>
           </div>
 
-          <div className="rounded-xl border border-line bg-panel2/50 p-4 flex items-start gap-3">
-            <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-circuit/10 text-circuit">
+          <div className="tech-card card-spotlight p-4 flex items-start gap-3 group">
+            <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-circuit/10 text-circuit group-hover:bg-circuit group-hover:text-void transition-colors duration-300">
               <Mail size={16} />
             </div>
             <div>
               <p className="text-xs font-semibold uppercase tracking-wider text-ink-dim mb-0.5">Email</p>
               <a
                 href="mailto:lawtronictechnologiesltd@gmail.com"
-                className="text-sm text-ink hover:text-circuit transition-colors break-all"
+                className="text-sm text-ink hover:text-circuit transition-colors break-all font-medium"
               >
                 lawtronictechnologiesltd@gmail.com
               </a>
             </div>
           </div>
 
-          <div className="rounded-xl border border-line bg-panel2/50 p-4 flex items-start gap-3">
-            <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-circuit/10 text-circuit">
+          <div className="tech-card card-spotlight p-4 flex items-start gap-3 group">
+            <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-circuit/10 text-circuit group-hover:bg-circuit group-hover:text-void transition-colors duration-300">
               <Navigation size={16} />
             </div>
             <div>
@@ -276,7 +280,7 @@ export default function Contact() {
                 href={MAPS_LINK}
                 target="_blank"
                 rel="noreferrer"
-                className="text-sm text-circuit hover:text-circuit-bright transition-colors flex items-center gap-1"
+                className="text-sm text-circuit hover:text-circuit-bright transition-colors flex items-center gap-1 font-semibold"
               >
                 Open in Google Maps <ExternalLink size={12} />
               </a>

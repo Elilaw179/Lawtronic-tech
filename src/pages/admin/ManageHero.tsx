@@ -1,8 +1,19 @@
 import { useEffect, useState, type FormEvent } from 'react';
-import { Save, Image as ImageIcon, RotateCcw, CheckCircle2, Eye, Sparkles } from 'lucide-react';
+import { Save, Image as ImageIcon, RotateCcw, CheckCircle2, Eye, Sparkles, Palette } from 'lucide-react';
 import FileUploader from '../../components/ui/FileUploader';
 import { COLLECTIONS, getDocById, setDocWithId } from '../../firebase/firestore';
 import type { HeroSettings } from '../../types';
+
+const COLOR_PRESETS = [
+  { name: 'Cyan', hex: '#00D4FF' },
+  { name: 'White', hex: '#FFFFFF' },
+  { name: 'Sky Blue', hex: '#3B82F6' },
+  { name: 'Amber Gold', hex: '#F59E0B' },
+  { name: 'Emerald', hex: '#10B981' },
+  { name: 'Purple', hex: '#A855F7' },
+  { name: 'Coral', hex: '#FF5733' },
+  { name: 'Soft Gray', hex: '#CBD5E1' },
+];
 
 export default function ManageHero() {
   const [bgImage, setBgImage] = useState('');
@@ -12,6 +23,12 @@ export default function ManageHero() {
   const [subheading, setSubheading] = useState('');
   const [primaryBtnLabel, setPrimaryBtnLabel] = useState('');
   const [secondaryBtnLabel, setSecondaryBtnLabel] = useState('');
+
+  // Hero text color states
+  const [eyebrowColor, setEyebrowColor] = useState('#00D4FF');
+  const [headlineColor, setHeadlineColor] = useState('#FFFFFF');
+  const [subheadingColor, setSubheadingColor] = useState('#F0F4F8');
+
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [savedSuccess, setSavedSuccess] = useState(false);
@@ -28,6 +45,9 @@ export default function ManageHero() {
           setSubheading(docData.subheading ?? '');
           setPrimaryBtnLabel(docData.primaryBtnLabel ?? '');
           setSecondaryBtnLabel(docData.secondaryBtnLabel ?? '');
+          setEyebrowColor(docData.eyebrowColor || '#00D4FF');
+          setHeadlineColor(docData.headlineColor || '#FFFFFF');
+          setSubheadingColor(docData.subheadingColor || '#F0F4F8');
         }
       } catch (err) {
         console.error('Failed to load hero settings:', err);
@@ -52,6 +72,9 @@ export default function ManageHero() {
         subheading,
         primaryBtnLabel,
         secondaryBtnLabel,
+        eyebrowColor,
+        headlineColor,
+        subheadingColor,
         updatedAt: new Date().toISOString(),
       };
 
@@ -75,6 +98,9 @@ export default function ManageHero() {
     setSubheading('');
     setPrimaryBtnLabel('');
     setSecondaryBtnLabel('');
+    setEyebrowColor('#00D4FF');
+    setHeadlineColor('#FFFFFF');
+    setSubheadingColor('#F0F4F8');
     try {
       await setDocWithId(COLLECTIONS.settings, 'hero', {
         bgImage: '',
@@ -84,6 +110,9 @@ export default function ManageHero() {
         subheading: '',
         primaryBtnLabel: '',
         secondaryBtnLabel: '',
+        eyebrowColor: '#00D4FF',
+        headlineColor: '#FFFFFF',
+        subheadingColor: '#F0F4F8',
         updatedAt: new Date().toISOString(),
       });
     } catch (err) {
@@ -110,13 +139,13 @@ export default function ManageHero() {
             </h1>
           </div>
           <p className="mt-1 text-sm text-ink-dim">
-            Manage the background image and all text content for the homepage Hero section.
+            Manage the background image, text content, and text colors for the homepage Hero section.
           </p>
         </div>
 
         {savedSuccess && (
           <div className="flex items-center gap-2 rounded-lg border border-success/40 bg-success/10 px-4 py-2 text-xs font-semibold text-success animate-fade-in">
-            <CheckCircle2 size={16} /> Hero background updated successfully!
+            <CheckCircle2 size={16} /> Hero settings updated successfully!
           </div>
         )}
       </div>
@@ -224,6 +253,110 @@ export default function ManageHero() {
                 />
               </div>
             </div>
+          </div>
+
+          {/* Text Color Styling Card */}
+          <div className="card p-6 space-y-5">
+            <h2 className="font-display text-base font-semibold text-ink flex items-center gap-2">
+              <Palette size={16} className="text-circuit" /> Hero Text Colors
+            </h2>
+            <p className="text-xs text-ink-muted">Choose your preferred text colors or click quick preset swatches.</p>
+
+            {/* Tagline / Eyebrow Color */}
+            <div className="space-y-2">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-ink-dim">Eyebrow / Tagline Color</label>
+              <div className="flex items-center gap-3">
+                <input
+                  type="color"
+                  value={eyebrowColor.startsWith('#') && eyebrowColor.length === 7 ? eyebrowColor : '#00D4FF'}
+                  onChange={(e) => setEyebrowColor(e.target.value)}
+                  className="h-9 w-10 cursor-pointer rounded border border-line bg-panel p-0.5"
+                />
+                <input
+                  type="text"
+                  value={eyebrowColor}
+                  onChange={(e) => setEyebrowColor(e.target.value)}
+                  placeholder="#00D4FF"
+                  className="admin-input text-xs font-mono uppercase w-32"
+                />
+                <div className="flex flex-wrap gap-1.5 ml-auto">
+                  {COLOR_PRESETS.slice(0, 6).map((preset) => (
+                    <button
+                      key={`eyebrow-${preset.hex}`}
+                      type="button"
+                      title={preset.name}
+                      onClick={() => setEyebrowColor(preset.hex)}
+                      className="w-5 h-5 rounded-full border border-line/80 transition-transform hover:scale-125 focus:outline-none"
+                      style={{ backgroundColor: preset.hex }}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Main Headline Color */}
+            <div className="space-y-2">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-ink-dim">Main Headline Color</label>
+              <div className="flex items-center gap-3">
+                <input
+                  type="color"
+                  value={headlineColor.startsWith('#') && headlineColor.length === 7 ? headlineColor : '#FFFFFF'}
+                  onChange={(e) => setHeadlineColor(e.target.value)}
+                  className="h-9 w-10 cursor-pointer rounded border border-line bg-panel p-0.5"
+                />
+                <input
+                  type="text"
+                  value={headlineColor}
+                  onChange={(e) => setHeadlineColor(e.target.value)}
+                  placeholder="#FFFFFF"
+                  className="admin-input text-xs font-mono uppercase w-32"
+                />
+                <div className="flex flex-wrap gap-1.5 ml-auto">
+                  {COLOR_PRESETS.slice(0, 6).map((preset) => (
+                    <button
+                      key={`headline-${preset.hex}`}
+                      type="button"
+                      title={preset.name}
+                      onClick={() => setHeadlineColor(preset.hex)}
+                      className="w-5 h-5 rounded-full border border-line/80 transition-transform hover:scale-125 focus:outline-none"
+                      style={{ backgroundColor: preset.hex }}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Subheading / Description Color */}
+            <div className="space-y-2">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-ink-dim">Subheading / Description Color</label>
+              <div className="flex items-center gap-3">
+                <input
+                  type="color"
+                  value={subheadingColor.startsWith('#') && subheadingColor.length === 7 ? subheadingColor : '#F0F4F8'}
+                  onChange={(e) => setSubheadingColor(e.target.value)}
+                  className="h-9 w-10 cursor-pointer rounded border border-line bg-panel p-0.5"
+                />
+                <input
+                  type="text"
+                  value={subheadingColor}
+                  onChange={(e) => setSubheadingColor(e.target.value)}
+                  placeholder="#F0F4F8"
+                  className="admin-input text-xs font-mono uppercase w-32"
+                />
+                <div className="flex flex-wrap gap-1.5 ml-auto">
+                  {COLOR_PRESETS.slice(0, 6).map((preset) => (
+                    <button
+                      key={`subheading-${preset.hex}`}
+                      type="button"
+                      title={preset.name}
+                      onClick={() => setSubheadingColor(preset.hex)}
+                      className="w-5 h-5 rounded-full border border-line/80 transition-transform hover:scale-125 focus:outline-none"
+                      style={{ backgroundColor: preset.hex }}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
 
             <div className="pt-4 border-t border-line flex items-center justify-between gap-3">
               <button
@@ -231,7 +364,7 @@ export default function ManageHero() {
                 onClick={handleReset}
                 className="btn-ghost text-xs px-3 py-2 flex items-center gap-1.5"
               >
-                <RotateCcw size={14} /> Clear Image
+                <RotateCcw size={14} /> Reset Defaults
               </button>
 
               <button
@@ -246,7 +379,7 @@ export default function ManageHero() {
                   </>
                 ) : (
                   <>
-                    <Save size={14} /> Save Hero Banner
+                    <Save size={14} /> Save Hero Settings
                   </>
                 )}
               </button>
@@ -284,15 +417,24 @@ export default function ManageHero() {
             {/* Circuit Glow Overlay */}
             <div className="pointer-events-none absolute inset-0 bg-hero-glow z-10" />
 
-            {/* Live hero text preview — always white */}
+            {/* Live hero text preview */}
             <div className="relative z-20 space-y-3 max-w-sm">
-              <span className="font-mono text-[0.65rem] uppercase tracking-[0.2em] block" style={{ color: '#00D4FF' }}>
+              <span
+                className="font-mono text-[0.65rem] uppercase tracking-[0.2em] block font-semibold transition-colors duration-200"
+                style={{ color: eyebrowColor || '#00D4FF' }}
+              >
                 {eyebrow || 'LAWTRONIC TECHNOLOGIES LTD • Innovate • Automate • Elevate'}
               </span>
-              <h3 className="font-display text-base font-bold leading-snug" style={{ color: '#ffffff' }}>
+              <h3
+                className="font-display text-base font-bold leading-snug transition-colors duration-200"
+                style={{ color: headlineColor || '#ffffff' }}
+              >
                 {headline || 'Building Intelligent Technology for Africa and Beyond'}
               </h3>
-              <p className="text-[11px] line-clamp-2" style={{ color: 'rgba(240,244,248,0.85)' }}>
+              <p
+                className="text-[11px] line-clamp-2 transition-colors duration-200"
+                style={{ color: subheadingColor || 'rgba(240,244,248,0.85)' }}
+              >
                 {subheading || 'Lawtronic Technologies develops robotics, embedded systems, artificial intelligence, software...'}
               </p>
               <div className="pt-2 flex justify-center gap-2">
@@ -307,10 +449,11 @@ export default function ManageHero() {
           </div>
 
           <p className="text-xs text-ink-muted leading-relaxed">
-            Note: The dark overlay ensures text remains clear and readable over light or detailed background images.
+            Note: Changes in text colors and content update instantly in this preview and are published immediately to the live site when saved.
           </p>
         </div>
       </div>
     </div>
   );
 }
+

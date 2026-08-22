@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, Suspense, useEffect } from 'react';
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard,
@@ -20,6 +20,7 @@ import {
 import { logoutAdmin } from '../../firebase/auth';
 import { useAuth } from '../../context/AuthContext';
 import ThemeToggle from '../ui/ThemeToggle';
+import TopProgressBar from '../ui/TopProgressBar';
 
 const NAV_ITEMS = [
   { to: '/admin/dashboard', label: 'Overview', icon: LayoutDashboard },
@@ -34,6 +35,20 @@ const NAV_ITEMS = [
   { to: '/admin/newsletter', label: 'Newsletter', icon: Mail },
   { to: '/admin/analytics', label: 'Analytics', icon: BarChart3 },
 ];
+
+const MODULE_PREFETCH: Record<string, () => Promise<unknown>> = {
+  '/admin/dashboard': () => import('../../pages/admin/Dashboard'),
+  '/admin/hero': () => import('../../pages/admin/ManageHero'),
+  '/admin/projects': () => import('../../pages/admin/ManageProjects'),
+  '/admin/research': () => import('../../pages/admin/ManageResearch'),
+  '/admin/posts': () => import('../../pages/admin/ManagePosts'),
+  '/admin/learning': () => import('../../pages/admin/ManageLearningHub'),
+  '/admin/team': () => import('../../pages/admin/ManageTeam'),
+  '/admin/community': () => import('../../pages/admin/ManageCommunity'),
+  '/admin/contacts': () => import('../../pages/admin/ManageContacts'),
+  '/admin/newsletter': () => import('../../pages/admin/ManageNewsletter'),
+  '/admin/analytics': () => import('../../pages/admin/Analytics'),
+};
 
 function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
   const { admin, setAdmin } = useAuth();
@@ -75,6 +90,8 @@ function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
             key={to}
             to={to}
             onClick={onNavigate}
+            onMouseEnter={() => MODULE_PREFETCH[to]?.()}
+            onFocus={() => MODULE_PREFETCH[to]?.()}
             className={({ isActive }) =>
               `flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors ${
                 isActive
@@ -112,6 +129,22 @@ function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
 
 export default function AdminLayout() {
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  // Pre-load ALL admin module chunks immediately after mount.
+  // Uses requestIdleCallback so it doesn't block the current page render.
+  // By the time the user clicks any nav link, the module is already cached.
+  useEffect(() => {
+    const preload = () => {
+      Object.values(MODULE_PREFETCH).forEach((fn) => fn());
+    };
+    if ('requestIdleCallback' in window) {
+      (window as any).requestIdleCallback(preload, { timeout: 2000 });
+    } else {
+      // Fallback for browsers without requestIdleCallback (Safari < 16)
+      const t = setTimeout(preload, 500);
+      return () => clearTimeout(t);
+    }
+  }, []);
 
   return (
     <div className="flex min-h-screen bg-void">
@@ -154,8 +187,10 @@ export default function AdminLayout() {
           </div>
           <ThemeToggle />
         </div>
-        <div className="flex-1 overflow-auto">
-          <Outlet />
+        <div className="flex-1 overflow-auto relative">
+          <Suspense fallback={<TopProgressBar />}>
+            <Outlet />
+          </Suspense>
         </div>
       </div>
     </div>

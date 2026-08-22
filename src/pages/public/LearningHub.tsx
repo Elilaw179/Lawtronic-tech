@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import SectionHeader from '../../components/ui/SectionHeader';
+import SmartImage from '../../components/ui/SmartImage';
 import { COLLECTIONS, listDocs } from '../../firebase/firestore';
 import { mockCourses } from '../../data/mockData';
 import type { Course } from '../../types';
@@ -77,20 +78,44 @@ export default function LearningHub() {
         ))}
       </div>
 
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 stagger">
         {filtered.map((course) => (
-          <div key={course.id} className="card-interactive p-6">
-            <div className="mb-3 flex items-center justify-between gap-2">
-              <span className="font-mono text-[10px] uppercase tracking-wider text-circuit">
-                {course.track}
-              </span>
-              <span className="text-xs text-ink-muted">{course.level}</span>
+          <div key={course.id} className="tech-card card-spotlight group flex flex-col overflow-hidden p-0">
+            {/* Course image if provided */}
+            {course.coverImage ? (
+              <SmartImage
+                src={course.coverImage}
+                alt={course.title}
+                className="aspect-[16/10] w-full"
+                fit="cover"
+              />
+            ) : (
+              <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-line bg-panel2/40 flex items-center justify-center">
+                <div className="absolute h-16 w-16 rounded-full border border-circuit/15 animate-ping opacity-20" />
+                <span className="font-mono text-xs uppercase tracking-wider text-circuit font-semibold">
+                  {course.track} Module
+                </span>
+              </div>
+            )}
+            <div className="flex flex-1 flex-col p-6">
+              <div className="mb-3 flex items-center justify-between gap-2">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-circuit font-semibold flex items-center gap-1.5">
+                  <span className="h-1.5 w-1.5 rounded-full bg-circuit tech-pulse-dot" />
+                  {course.track}
+                </span>
+                <span className="rounded-md border border-line bg-panel px-2 py-0.5 text-[11px] font-mono text-ink-muted">{course.level}</span>
+              </div>
+              <h3 className="font-display text-lg font-semibold text-ink group-hover:text-circuit-bright transition-colors duration-300">{course.title}</h3>
+              <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-dim">{course.description}</p>
+              <div className="mt-4 pt-3 border-t border-line/50 flex items-center justify-between">
+                <span className="text-xs text-ink-muted font-mono">
+                  {(course.lessons?.length ?? 0)} lessons
+                </span>
+                <span className="text-xs font-semibold text-circuit group-hover:text-circuit-bright transition-colors flex items-center gap-1">
+                  Explore →
+                </span>
+              </div>
             </div>
-            <h3 className="font-display text-lg font-medium text-ink">{course.title}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-ink-dim">{course.description}</p>
-            <p className="mt-4 text-xs text-ink-muted">
-              {(course.lessons?.length ?? 0)} lessons
-            </p>
           </div>
         ))}
       </div>

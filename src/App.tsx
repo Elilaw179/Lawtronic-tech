@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import PublicLayout from './components/layout/PublicLayout';
 import AdminLayout from './components/layout/AdminLayout';
 import ProtectedRoute from './components/layout/ProtectedRoute';
-import { PageLoader } from './components/ui/LoadingSpinner';
 
+// All public pages — statically bundled for instant navigation
 import Home from './pages/public/Home';
 import About from './pages/public/About';
 import Projects from './pages/public/Projects';
@@ -19,6 +18,7 @@ import Careers from './pages/public/Careers';
 import Team from './pages/public/Team';
 import Contact from './pages/public/Contact';
 
+// All admin pages — statically bundled for instant navigation
 import Dashboard from './pages/admin/Dashboard';
 import ManageHero from './pages/admin/ManageHero';
 import ManageProjects from './pages/admin/ManageProjects';
@@ -32,19 +32,6 @@ import ManageContacts from './pages/admin/ManageContacts';
 import Analytics from './pages/admin/Analytics';
 
 export default function App() {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (loading) {
-    return <PageLoader />;
-  }
-
   return (
     <Routes>
       <Route element={<PublicLayout />}>
@@ -86,4 +73,3 @@ export default function App() {
     </Routes>
   );
 }
-//keep building

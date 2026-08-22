@@ -96,12 +96,12 @@ export default function About() {
         />
         <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 stagger">
           {APPROACH_STEPS.map((s) => (
-            <div key={s.step} className="card-interactive p-6 relative overflow-hidden group">
+            <div key={s.step} className="tech-card card-spotlight p-6 relative overflow-hidden group">
               <div className="mb-4 flex items-center justify-between">
-                <span className="font-mono text-2xl font-bold text-circuit opacity-70 group-hover:opacity-100 transition-opacity">
+                <span className="font-mono text-2xl font-bold text-circuit opacity-80 group-hover:opacity-100 transition-opacity">
                   {s.step}
                 </span>
-                <div className="h-1.5 w-1.5 rounded-full bg-circuit" />
+                <span className="h-1.5 w-1.5 rounded-full bg-circuit tech-pulse-dot" />
               </div>
               <h3 className="font-display text-lg font-semibold text-ink group-hover:text-circuit-bright transition-colors">
                 {s.title}
@@ -125,8 +125,8 @@ export default function About() {
         />
         <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 stagger">
           {WHY_LAWTRONIC.map((w) => (
-            <div key={w.title} className="card p-6 border-line hover:border-circuit/40 transition-colors">
-              <h3 className="font-display text-lg font-semibold text-ink">{w.title}</h3>
+            <div key={w.title} className="tech-card card-spotlight p-6 group">
+              <h3 className="font-display text-lg font-semibold text-ink group-hover:text-circuit-bright transition-colors">{w.title}</h3>
               <p className="mt-3 text-sm leading-relaxed text-ink-dim">{w.detail}</p>
             </div>
           ))}

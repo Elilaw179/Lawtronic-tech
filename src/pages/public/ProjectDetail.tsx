@@ -66,7 +66,7 @@ export default function ProjectDetail() {
           src={project.coverImage || ''}
           alt={project.title}
           className="aspect-[16/9] w-full"
-          fit="smart"
+          fit="cover"
         />
       </div>
 

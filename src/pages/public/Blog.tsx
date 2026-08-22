@@ -22,12 +22,12 @@ export default function Blog() {
     <div className="mx-auto max-w-7xl px-5 py-20 md:px-6 md:py-24">
       <SectionHeader eyebrow="Blog & news" title="Updates, insights, and announcements" />
 
-      <div className="mx-auto grid max-w-3xl gap-5">
+      <div className="mx-auto grid max-w-3xl gap-5 stagger">
         {posts.map((post) => (
           <Link
             key={post.id}
             to={`/blog/${post.slug}`}
-            className="card-interactive block overflow-hidden p-0 group"
+            className="tech-card card-spotlight block overflow-hidden p-0 group"
           >
             <div className="flex flex-col md:flex-row">
               {post.coverImage && (
@@ -44,10 +44,11 @@ export default function Blog() {
               <div className="p-6 md:p-8 flex-1 flex flex-col justify-between">
                 <div>
                   <div className="mb-3 flex flex-wrap items-center gap-3">
-                    <span className="font-mono text-[10px] uppercase tracking-wider text-circuit font-semibold">
+                    <span className="font-mono text-[10px] uppercase tracking-wider text-circuit font-semibold flex items-center gap-1.5">
+                      <span className="h-1.5 w-1.5 rounded-full bg-circuit tech-pulse-dot" />
                       {post.type}
                     </span>
-                    <span className="text-xs text-ink-muted">{post.publishedAt}</span>
+                    <span className="text-xs text-ink-muted font-mono">{post.publishedAt}</span>
                   </div>
                   <h3 className="font-display text-xl font-semibold text-ink transition-colors group-hover:text-circuit-bright">
                     {post.title}
@@ -59,7 +60,7 @@ export default function Blog() {
                     {post.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-md border border-line bg-panel2 px-2 py-0.5 text-[11px] text-ink-muted"
+                        className="rounded-md border border-line bg-panel2 px-2 py-0.5 text-[11px] font-mono text-ink-muted group-hover:border-circuit/30 transition-colors"
                       >
                         {tag}
                       </span>

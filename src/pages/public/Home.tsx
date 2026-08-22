@@ -138,6 +138,14 @@ export default function Home() {
     <div>
       {/* ── HERO SECTION ────────────────────────────────────────── */}
       <section className="grid-bg relative overflow-hidden border-b border-line bg-void">
+        {/* Ambient floating particles */}
+        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden opacity-70">
+          <div className="particle absolute top-1/4 left-1/6 h-2 w-2 rounded-full bg-circuit/40 blur-[1px]" style={{ '--particle-dur': '7s', '--particle-delay': '0s' } as React.CSSProperties} />
+          <div className="particle absolute top-2/3 left-1/3 h-1.5 w-1.5 rounded-full bg-circuit-bright/60 blur-[1px]" style={{ '--particle-dur': '9s', '--particle-delay': '1.5s' } as React.CSSProperties} />
+          <div className="particle absolute top-1/3 right-1/4 h-2 w-2 rounded-full bg-accent/40 blur-[1px]" style={{ '--particle-dur': '8s', '--particle-delay': '2.5s' } as React.CSSProperties} />
+          <div className="particle absolute bottom-1/4 right-1/6 h-1 w-1 rounded-full bg-circuit/50" style={{ '--particle-dur': '6s', '--particle-delay': '1s' } as React.CSSProperties} />
+        </div>
+
         {/* Dynamic Background Image from Admin Panel */}
         {heroSettings?.bgImage && (
           <div className="absolute inset-0 z-0 pointer-events-none">
@@ -157,25 +165,40 @@ export default function Home() {
 
         <div className="relative z-10 mx-auto max-w-7xl px-5 py-20 sm:py-28 md:py-36 md:px-6">
           <div className="flex flex-col items-center gap-10 lg:flex-row lg:items-center lg:gap-16">
-            {/* Text — colors always white/cyan regardless of light/dark mode */}
+            {/* Text — colors controlled from admin panel */}
             <div className="flex-1 text-center lg:text-left">
               <p
-                className="mb-4 animate-fade-up sm:mb-5 font-mono text-[0.725rem] uppercase tracking-[0.2em] text-[#00D4FF]"
-                style={{ animationDelay: '0ms', animationFillMode: 'forwards' }}
+                className="mb-4 animate-fade-up sm:mb-5 font-mono text-[0.725rem] uppercase tracking-[0.2em]"
+                style={{
+                  animationDelay: '0ms',
+                  animationFillMode: 'forwards',
+                  color: heroSettings?.eyebrowColor || '#00D4FF',
+                }}
               >
                 {heroSettings?.eyebrow ?? 'LAWTRONIC TECHNOLOGIES LTD • Innovate • Automate • Elevate'}
               </p>
               <h1
                 className="font-display text-3xl font-semibold leading-[1.08] tracking-tight animate-fade-up sm:text-4xl md:text-5xl lg:text-[3.4rem]"
-                style={{ animationDelay: '100ms', animationFillMode: 'forwards', color: '#ffffff' }}
+                style={{
+                  animationDelay: '100ms',
+                  animationFillMode: 'forwards',
+                  color: heroSettings?.headlineColor || '#ffffff',
+                }}
               >
-                <span className="text-blue-chrome-animated">
+                <span
+                  className={!heroSettings?.headlineColor || heroSettings.headlineColor.toUpperCase() === '#FFFFFF' ? "text-blue-chrome-animated" : undefined}
+                  style={heroSettings?.headlineColor ? { color: heroSettings.headlineColor } : undefined}
+                >
                   {heroSettings?.headline ?? 'Building Intelligent Technology for Africa and Beyond'}
                 </span>
               </h1>
               <p
                 className="mt-5 text-base leading-relaxed animate-fade-up sm:text-lg md:max-w-2xl mx-auto lg:mx-0"
-                style={{ animationDelay: '220ms', animationFillMode: 'forwards', color: 'rgba(240, 244, 248, 0.9)' }}
+                style={{
+                  animationDelay: '220ms',
+                  animationFillMode: 'forwards',
+                  color: heroSettings?.subheadingColor || 'rgba(240, 244, 248, 0.9)',
+                }}
               >
                 {heroSettings?.subheading ?? 'Lawtronic Technologies develops robotics, embedded systems, artificial intelligence, software, and innovative technology solutions designed to solve real-world problems and expand access to advanced technology.'}
               </p>
@@ -200,7 +223,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ΓöÇΓöÇ IMPACT HIGHLIGHTS ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */}
+      {/* ── IMPACT HIGHLIGHTS ────────────────────────────────────────── */}
       <section className="relative border-b border-line bg-gradient-to-b from-panel/30 to-panel/10 py-10 md:py-14">
         <div className="mx-auto max-w-7xl px-5 md:px-6">
           <div className="relative rounded-2xl border border-line bg-panel2/30 p-8 md:p-10 backdrop-blur-md overflow-hidden shadow-elevated">
@@ -208,10 +231,14 @@ export default function Home() {
             <div className="grid grid-cols-2 gap-8 md:grid-cols-4 stagger relative z-10">
               {IMPACT_STATS.map((stat) => (
                 <div key={stat.label} className="text-center group">
-                  <p className="font-display text-3xl font-extrabold text-circuit sm:text-4xl tracking-tight transition-transform duration-300 group-hover:scale-105">
+                  <p className="font-display text-3xl font-extrabold text-circuit sm:text-4xl tracking-tight transition-transform duration-300 group-hover:scale-110 group-hover:text-circuit-bright">
                     {stat.value}
+                    <span className="relative ml-1 inline-flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-circuit opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-circuit-bright"></span>
+                    </span>
                   </p>
-                  <div className="mt-2 mx-auto w-8 h-[2px] bg-line group-hover:bg-circuit/60 transition-colors duration-300" />
+                  <div className="mt-2 mx-auto w-8 h-[2px] bg-line group-hover:bg-circuit group-hover:w-12 transition-all duration-300" />
                   <p className="mt-2 text-[10px] font-mono uppercase tracking-wider text-ink-muted sm:text-xs">{stat.label}</p>
                 </div>
               ))}
@@ -220,7 +247,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ΓöÇΓöÇ ABOUT LAWTRONIC ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */}
+      {/* ── ABOUT LAWTRONIC ────────────────────────────────────────── */}
       <section className="mx-auto max-w-7xl px-5 py-16 md:px-6 md:py-24">
         <div className="grid gap-8 md:grid-cols-2 md:gap-16 items-center">
           <div>
@@ -251,7 +278,7 @@ export default function Home() {
 
       <div className="circuit-divider" />
 
-      {/* ΓöÇΓöÇ WHAT WE DO (6 CARDS) ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */}
+      {/* ── WHAT WE DO (6 CARDS) ────────────────────────────────── */}
       <section className="mx-auto max-w-7xl px-5 py-16 md:px-6 md:py-24">
         <SectionHeader
           eyebrow="What We Do"
@@ -262,8 +289,8 @@ export default function Home() {
           {WHAT_WE_DO.map((item) => {
             const Icon = item.icon;
             return (
-              <div key={item.title} className="card-interactive p-6 relative overflow-hidden bg-panel2/30 backdrop-blur-sm border-line hover:border-circuit/35 transition-all duration-300">
-                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-circuit/10 text-circuit transition-all duration-300 group-hover:bg-circuit group-hover:text-void group-hover:shadow-glow-sm">
+              <div key={item.title} className="tech-card card-spotlight p-6 relative overflow-hidden group">
+                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-circuit/10 text-circuit transition-all duration-300 group-hover:bg-circuit group-hover:text-void group-hover:shadow-glow">
                   <Icon size={22} strokeWidth={1.75} />
                 </div>
                 <h3 className="font-display text-base font-semibold text-ink sm:text-lg group-hover:text-circuit-bright transition-colors duration-300">{item.title}</h3>
@@ -276,7 +303,7 @@ export default function Home() {
 
       <div className="circuit-divider" />
 
-      {/* ΓöÇΓöÇ CURRENT DEVELOPMENT: FROM PROTOTYPE TO PRODUCT ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */}
+      {/* ── CURRENT DEVELOPMENT: FROM PROTOTYPE TO PRODUCT ────────── */}
       <section className="mx-auto max-w-7xl px-5 py-16 md:px-6 md:py-24">
         <SectionHeader
           eyebrow="Our Current Development"
@@ -284,8 +311,9 @@ export default function Home() {
           description="Lawtronic is currently developing and validating technology concepts that can evolve into commercially viable products."
         />
 
-        <div className="card p-8 md:p-12 bg-gradient-to-br from-panel2/40 to-panel/60 border-circuit/30 relative overflow-hidden">
-          <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
+        <div className="tech-card p-8 md:p-12 bg-gradient-to-br from-panel2/40 to-panel/60 border-circuit/40 relative overflow-hidden group shadow-elevated">
+          <div className="scan-line" />
+          <div className="grid gap-8 lg:grid-cols-2 lg:items-center relative z-10">
             <div>
               <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-circuit/30 bg-circuit/10 px-3 py-1 text-xs font-mono font-semibold text-circuit">
                 <StatusBadge status="Prototype" />
@@ -298,14 +326,17 @@ export default function Home() {
                 Our recent engineering work includes a 2WD autonomous obstacle-avoiding robot combining Arduino, motor control, ultrasonic sensing, servo-based scanning, and embedded programming.
               </p>
               <div className="mt-6 space-y-2">
-                <p className="font-mono text-xs uppercase tracking-wider text-circuit font-semibold">Integrates System Pipeline:</p>
+                <p className="font-mono text-xs uppercase tracking-wider text-circuit font-semibold flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-circuit tech-pulse-dot" />
+                  Integrates System Pipeline:
+                </p>
                 <p className="text-sm font-medium text-ink-dim">
                   Hardware + Embedded Software + Sensors + Control Logic + Autonomous Decision-Making
                 </p>
               </div>
             </div>
 
-            <div className="space-y-4 rounded-xl border border-line bg-panel2/60 p-6">
+            <div className="space-y-4 rounded-xl border border-line bg-panel2/60 p-6 relative overflow-hidden">
               <h4 className="font-display text-sm font-semibold text-ink uppercase tracking-wider">Technologies Used</h4>
               <div className="flex flex-wrap gap-2">
                 {[
@@ -318,7 +349,7 @@ export default function Home() {
                   'Motor Control',
                   'Autonomous Navigation Logic',
                 ].map((tech) => (
-                  <span key={tech} className="rounded-md border border-line bg-panel px-2.5 py-1 text-xs font-mono text-ink-dim">
+                  <span key={tech} className="rounded-md border border-line bg-panel px-2.5 py-1 text-xs font-mono text-ink-dim hover:border-circuit/40 hover:text-circuit transition-colors duration-200">
                     {tech}
                   </span>
                 ))}

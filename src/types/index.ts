@@ -58,6 +58,7 @@ export interface Course {
   track: 'Robotics' | 'AI' | 'Programming' | 'Electronics';
   level: 'Beginner' | 'Intermediate' | 'Advanced';
   description: string;
+  coverImage?: string;
   lessons: { id: string; title: string; videoUrl?: string; durationMin: number }[];
   learningPathId?: string;
   published: boolean;
@@ -121,5 +122,8 @@ export interface HeroSettings {
   subheading?: string;
   primaryBtnLabel?: string;
   secondaryBtnLabel?: string;
+  eyebrowColor?: string;
+  headlineColor?: string;
+  subheadingColor?: string;
   updatedAt?: string;
 }

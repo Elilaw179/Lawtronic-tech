@@ -515,4 +515,73 @@
   filter: none;
 }
 
+/* ── Modern Tech Animations & Micro-Interactions ── */
+@keyframes techPulseDot {
+  0%, 100% { transform: scale(1); opacity: 0.6; box-shadow: 0 0 0 0 rgb(var(--color-circuit-rgb) / 0.7); }
+  50% { transform: scale(1.35); opacity: 1; box-shadow: 0 0 12px 4px rgb(var(--color-circuit-rgb) / 0.9); }
+}
+
+.tech-pulse-dot {
+  animation: techPulseDot 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+@keyframes techGlowHalo {
+  0%, 100% { transform: scale(0.96); opacity: 0.35; filter: blur(24px); }
+  50% { transform: scale(1.1); opacity: 0.75; filter: blur(36px); }
+}
+
+.tech-halo-glow {
+  animation: techGlowHalo 5s ease-in-out infinite alternate;
+}
+
+@keyframes techRadarSweep {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.tech-radar-sweep {
+  animation: techRadarSweep 12s linear infinite;
+}
+
+@keyframes floatGentle {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-7px) rotate(1deg); }
+}
+
+.tech-float {
+  animation: floatGentle 4.5s ease-in-out infinite;
+}
+
+/* Enhanced interactive tech card styling */
+.tech-card {
+  @apply relative rounded-2xl border border-line bg-panel bg-card-shine transition-all duration-300 ease-smooth overflow-hidden;
+  box-shadow: var(--shadow-card-custom);
+}
+
+.tech-card:hover {
+  @apply border-circuit/50 -translate-y-1.5;
+  box-shadow: 0 16px 40px -10px rgba(0, 212, 255, 0.18), var(--shadow-elevated-custom);
+}
+
+.tech-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.08), transparent);
+  transition: left 0.75s ease-in-out;
+  pointer-events: none;
+}
+
+.tech-card:hover::before {
+  left: 100%;
+}
+
+.tech-pill {
+  @apply inline-flex items-center gap-1.5 rounded-full border border-circuit/30 bg-circuit/10 px-3 py-1 text-xs font-mono font-semibold text-circuit transition-all duration-300 hover:border-circuit/60 hover:bg-circuit/20 hover:shadow-glow-sm;
+}
+
+
 
